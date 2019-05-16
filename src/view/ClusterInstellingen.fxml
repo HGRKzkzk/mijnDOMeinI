@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GridPane fx:id="rootPane" fx:controller="controller.ClusterInstellingenController"
+    xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" >
+
+	
+		
+	<TextField editable="true" promptText="Cluster naam" fx:id="clusterName" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+	
+	
+	<Button text="Verwijderen" onAction="#removecluster" GridPane.columnIndex="6"
+			GridPane.rowIndex="0" />
+			
+	 
+	
+	
+	<Button text="Terug" onAction="#back" GridPane.columnIndex="6"
+			GridPane.rowIndex="2" />
+			
+			<Button text="Opslaan" onAction="#savecluster" GridPane.columnIndex="0"
+			GridPane.rowIndex="2" />
+			
+			
+ 
+
+
+
+<HBox><Label  text="        " /><Label  text="        " /></HBox>
+
+
+	
+
+</GridPane>

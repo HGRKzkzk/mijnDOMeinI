@@ -1,0 +1,70 @@
+
+  .root {
+  	
+  	-fx-base: #eeefef;
+  	
+  	}
+  	
+  	
+  	.text-field {
+    -fx-text-box-border: transparent;
+}
+  	
+  	
+  	.combo-box {
+  	
+  	-fx-pref-width: 202px;
+    -fx-pref-height: 11px;	
+  	-fx-background-color: white;
+  		
+  		
+  	}
+
+.button {
+    -fx-pref-width: 132px;
+    -fx-pref-height: 11px;
+    -fx-background-color: white;
+    -fx-text-fill: black;
+     -fx-border-color:grey;
+      -fx-border-radius: 0 0 10 0;
+      -fx-background-radius: 10 10 10 10;
+    
+      
+}
+
+.button:hover{
+
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: LEFT;
+}
+
+
+.text-field {
+	    -fx-text-box-border: grey;
+    -fx-background-color: white;
+	
+	-fx-border-radius: 10 10 10 10;
+	-fx-background-radius: 10 10 10 10;
+    -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
+}
+
+.text-field:focused {
+	-fx-border-color:black;
+	-fx-border-radius: 10 10 10 10;
+	-fx-background-radius: 10 10 10 10;
+    -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
+}
+
+
+.switchedOn {
+	-fx-font-weight: bold  ;
+	-fx-text-fill: black;
+} 
+
+.selected {
+	  -fx-border-width: 1.44;
+	     -fx-border-color:black;
+	
+	
+}

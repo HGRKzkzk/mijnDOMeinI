@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GridPane fx:id="rootPane"
+	fx:controller="controller.ApparaatDetailsController"
+	xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="5" vgap="5">
+
+	<VBox>
+
+		<HBox>
+			<Label text="Naam:     " />
+			<Label fx:id="deviceName" text="" />
+		</HBox>
+		<HBox>
+			<Label text="Poort:     " />
+			<Label fx:id="devicePort" text="" />
+		</HBox>
+		<HBox>
+			<Label text="Type:      " />
+			<Label fx:id="deviceType" text="" />
+		</HBox>
+		<HBox>
+			<Label text="Aan?       " />
+			<Label fx:id="deviceState" text="" />
+		</HBox>
+		<HBox>
+			<Label text="Actief?    " />
+			<Label fx:id="deviceActive" text="" />
+		</HBox>
+
+
+		<Label text="" />
+		<Button text="Instellingen" onAction="#showDeviceSettings" />
+		<Label text="" />
+
+		<Label text="" />
+		<Slider fx:id="slider" />
+		<Label text="" />
+		<Label text="" />
+
+
+
+
+		<HBox>
+
+			<Button fx:id="buttonOn" text="Aan" onAction="#switchOn" />
+			<Label text="        " />
+
+			<Button fx:id="buttonOff" text="Uit" onAction="#switchOff" />
+		</HBox>
+
+		<HBox>
+			<Label text="        " />
+			<Label text="        " />
+		</HBox>
+
+
+
+
+		<Button text="Terug" onAction="#back" GridPane.columnIndex="6"
+			GridPane.rowIndex="2" />
+
+
+
+	</VBox>
+
+</GridPane>

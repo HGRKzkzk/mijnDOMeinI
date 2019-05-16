@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GridPane fx:id="rootPane" fx:controller="controller.MainScreenController" xmlns:fx="http://javafx.com/fxml"
+alignment="center" hgap="5" vgap="5" >
+		
+
+
+		<VBox spacing="5">
+		
+		
+<Label text=" "/>
+<Label text=" "/>
+		
+		
+				<Button fx:id="devices" text="Apparaten:" onAction="#apparatenKnop" 
+        		GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+ 
+			    <Button fx:id="clusters" text="Clusters:" onAction="#clusterKnop"
+        		GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        		
+        		
+		 	<!--    <Button fx:id="settings" text="Instellingen" onAction="#mainSettings"
+        		GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+          -->
+        		
+        		 <Button fx:id="exit" text="Afsluiten" onAction="#exit"
+        		GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+ 	   </VBox>
+
+</GridPane>

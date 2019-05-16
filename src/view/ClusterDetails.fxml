@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GridPane fx:id="rootPane" fx:controller="controller.ClusterDetailsController"
+    xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" >
+
+	<VBox >
+
+		<HBox><Label  text="Naam:   " /><Label fx:id="clusterName" text="" /></HBox>
+		<HBox><Label text="Inhoud:    " /><Label fx:id="clusterContents" text="" /></HBox>
+		<HBox><Label text="Aan?      " /><Label fx:id="clusterState" text="" /></HBox>
+		
+		<Label  text="" />
+		<Button text="Instellingen" onAction="#showClusterSettings" />
+		<Label  text="" />
+		<Label  text="" />
+		<Label  text="" />
+		<Label  text="" />
+		
+		
+
+
+		<HBox>
+		
+			<Button fx:id="buttonOn" text="Aan" onAction="#switchOn" />
+			<Label  text="        " />
+			
+			<Button fx:id="buttonOff" text="Uit" onAction="#switchOff"  />
+		</HBox>
+
+<HBox><Label  text="        " /><Label  text="        " /></HBox>
+
+
+		<Button text="Terug" onAction="#back" GridPane.columnIndex="6"
+			GridPane.rowIndex="2" />
+
+	</VBox>
+
+</GridPane>

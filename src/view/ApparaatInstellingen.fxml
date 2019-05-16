@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GridPane fx:id="rootPane" fx:controller="controller.ApparaatInstellingenController"
+    xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" >
+
+
+
+	<Label text="Naam" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+	<Label text="Poort" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+		
+	<TextField editable="true" promptText="Apparaat naam" fx:id="deviceName" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+	<TextField editable="true" promptText="Gebruikte poort" fx:id="devicePort" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+	
+	<Button text="Verwijderen" fx:id="removeButton" onAction="#removedevice" GridPane.columnIndex="7"
+			GridPane.rowIndex="2" />
+			
+			<Button text="Deactiveren" fx:id="deactivateButton" onAction="#deactivate" GridPane.columnIndex="7"
+			GridPane.rowIndex="3" />
+	
+	
+	<Button text="Terug" onAction="#back" GridPane.columnIndex="7"
+			GridPane.rowIndex="4" />
+			
+			<Button text="Opslaan" fx:id="saveButton" onAction="#savedevice" GridPane.columnIndex="2"
+			GridPane.rowIndex="4" />
+			
+			
+ 
+
+
+
+<HBox><Label  text="        " /><Label  text="        " /></HBox>
+
+
+	
+
+</GridPane>
