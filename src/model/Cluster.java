@@ -22,7 +22,7 @@ public class Cluster implements Serializable, Nameable, Switchable {
 
 	}
 
-	public void addDeviceToCluser(Device device) {
+	public void addDeviceToCluster(Device device) {
 
 		this.devicesInCLuster.add(device);
 

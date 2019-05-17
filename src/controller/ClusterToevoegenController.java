@@ -61,7 +61,7 @@ public class ClusterToevoegenController implements Initializable {
 		
 		Cluster cluster = new Cluster(name);
 		for (Device device : selectedDeviceList) {
-			cluster.addDeviceToCluser(deviceList.get
+			cluster.addDeviceToCluster(deviceList.get
 					(deviceList.indexOf(device)));
 		}
 
