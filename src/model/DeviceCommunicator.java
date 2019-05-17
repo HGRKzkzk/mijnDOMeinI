@@ -34,32 +34,44 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 		System.out.println("-> server");
 
 		if (proxy.connectClientToServer()) {
-			String response;
-			response = proxy.sendRequest("getConfig", " ");
-			System.out.println("Response: " + response);
 
-			response = response.replace(STR_START, "");
-			response = response.replace(STR_STOP, "");
-			System.out.println(response);
-			String[] tempArray;
-			tempArray = response.split(INTERSECTION);
+			String response = proxy.sendRequest("getConfig", " ");
+			String checkedResponse = handleConfigResponse(response);
+			String[] tempArray = checkedResponse.split(INTERSECTION);
 
 			if (tempArray[0].contentEquals(EMPTY_RESPONSE) || tempArray[0].contentEquals("message"))
 				return;
 
 			ga.getDeviceList().clear();
-
-			for (String s : tempArray) {
-				String[] tempArray2 = s.split(SPACER);
-
-				Device d = dfac.getDevice(tempArray2);
-				ga.getDeviceList().add(d);
-
-			}
+			getDevicesFromString(tempArray);
 			proxy.closeConnection();
 		}
 
 		return;
+
+	}
+
+	public String handleConfigResponse(String response) {
+		String checkedResponse;
+		System.out.println("Response: " + response);
+		response = response.replace(STR_START, "");
+		response = response.replace(STR_STOP, "");
+		System.out.println(response);
+		checkedResponse = response;
+
+		return checkedResponse;
+
+	}
+
+	public void getDevicesFromString(String[] tempArray) {
+
+		for (String s : tempArray) {
+			String[] tempArray2 = s.split(SPACER);
+
+			Device d = dfac.getDevice(tempArray2);
+			ga.getDeviceList().add(d);
+
+		}
 
 	}
 
@@ -69,22 +81,8 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 //		System.out.println("-> server");
 
 		ArrayList<Device> devices = (ArrayList<Device>) ga.getDeviceList();
-		configMsg = "[";
-
-		// TYPE _ NAME _ PORT _ ON _ ACTIVE
-		for (Device d : devices) {
-
-			String type = d.getClass().getSimpleName();
-			String name = d.getName();
-			int port = d.getPort();
-			boolean isOn = d.getSwitchedOn();
-			boolean isActive = d.isActivated();
-			configMsg += MSG_START + type + SPACER + name + SPACER + port + SPACER + isOn + SPACER + isActive
-					+ MSG_STOP;
-
-		}
-
-		configMsg += "]";
+		configMsg = "[" + generateConfigProtocolFromList(devices) + "]";
+		System.out.println(configMsg);
 
 		if (proxy.connectClientToServer()) {
 			String response = proxy.sendRequest("setConfig", configMsg);
@@ -96,18 +94,32 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 
 	}
 
+	public String generateConfigProtocolFromList(ArrayList<Device> devices) {
+		String result = "";
+		for (Device d : devices) {
+
+			String type = d.getClass().getSimpleName();
+			String name = d.getName();
+			int port = d.getPort();
+			boolean isOn = d.getSwitchedOn();
+			boolean isActive = d.isActivated();
+			result += MSG_START + type + SPACER + name + SPACER + port + SPACER + isOn + SPACER + isActive + MSG_STOP;
+
+		}
+
+		return result;
+
+	}
+
 	public void flipswitch(Device device) {
 
 //		System.out.println("Schakelaar omzetten.");
 
-		int[] message = new int[3];
 		int whichValue = device.getSwitchedOn() ? 1 : 0; // van boolean naar int tbv protocol
 		int whichPin = device.getPort();
 		int whichAction = ArduinoRequests.switchPin.num;
 
-		message[0] = whichPin;
-		message[1] = whichAction;
-		message[2] = whichValue;
+		int[] message = new int[] { whichPin, whichAction, whichValue };
 
 		sendmessage("setHc", message);
 		return;
@@ -118,15 +130,11 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 
 //		System.out.println("Waarde aanpassen.");
 
-		int pinValue = ((Dimmable) device).getDimValue();
-		int[] message = new int[3];
-		int whichValue = pinValue;
+		int whichValue = ((Dimmable) device).getDimValue();
 		int whichPin = device.getPort();
 		int whichAction = ArduinoRequests.setValue.num;
 
-		message[0] = whichPin;
-		message[1] = whichAction;
-		message[2] = whichValue;
+		int[] message = new int[] { whichPin, whichAction, whichValue };
 
 		sendmessage("setHc", message);
 		return;
@@ -136,24 +144,21 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 
 //		System.out.println("Status opvragen.");
 
-		int[] message = new int[3];
 		int whichValue = device.getSwitchedOn() ? 1 : 0; // van boolean naar int tbv protocol
 		int whichPin = device.getPort();
 		int whichAction = ArduinoRequests.getStatus.num;
 
-		message[0] = whichPin;
-		message[1] = whichAction;
-		message[2] = whichValue;
+		int[] message = new int[] { whichPin, whichAction, whichValue };
 
 		sendmessage("getHc", message);
 		return;
 	}
 
 	public void sendmessage(String action, int[] message) {
-
 		int whichPin = message[0];
 		int whichAction = message[1];
 		int whichValue = message[2];
+
 		String msg = ARD_BOM + whichPin + ARD_DIVIDER + whichAction + ARD_DIVIDER + whichValue + ARD_EOM;
 
 		// System.out.println(msg);
