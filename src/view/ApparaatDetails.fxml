@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
 <GridPane fx:id="rootPane"
-	fx:controller="controller.ApparaatDetailsController"
-	xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="5" vgap="5">
+		  fx:controller="controller.ApparaatDetailsController"
+		  xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="5" vgap="5">
 
 	<VBox>
 
