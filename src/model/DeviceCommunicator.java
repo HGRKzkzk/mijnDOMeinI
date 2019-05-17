@@ -1,33 +1,23 @@
 package model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
+import interfaces.ArduinoConventions;
+import interfaces.ConfigProtocol;
 import interfaces.Dimmable;
 import jserial.ArduinoRequests;
 import jserial.jSerialcomm;
 import proxy.ProxyOnsDomein;
 import view.Main;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
 @SuppressWarnings("serial")
-public class DeviceCommunicator implements Serializable {
+public class DeviceCommunicator implements Serializable, ArduinoConventions, ConfigProtocol {
 
-	transient DeviceFactory dfac = new DeviceFactory();
-	transient ProxyOnsDomein proxy;
-	transient GebruikersApplicatie ga;
-		
-	transient String configMsg;
-	transient final String SPACER = "_";
-	transient final String INTERSECTION = ">><<";
-	transient final String STR_START = "[<<";
-	transient final String STR_STOP = ">>]";
-	transient final String MSG_START = "<<";
-	transient final String MSG_STOP = ">>";
-	transient final String EMPTY_RESPONSE = "[]";
-
-	transient final String ARD_DIVDER = ":";
-	transient final String ARD_BOM = "<";
-	transient final String ARD_EOM = ">";
+	transient private DeviceFactory dfac = new DeviceFactory();
+	transient private ProxyOnsDomein proxy;
+	transient private GebruikersApplicatie ga;
+	transient private String configMsg;
 
 	public DeviceCommunicator() {
 		proxy = new ProxyOnsDomein();
@@ -35,56 +25,51 @@ public class DeviceCommunicator implements Serializable {
 
 	public DeviceCommunicator(GebruikersApplicatie gebruikersApplicatie) {
 		this.ga = gebruikersApplicatie;
+		proxy = new ProxyOnsDomein();
 	}
 
 	public void requestConfigFromServer() {
 
-		System.out.println("Status van alle aangesloten apparaten opvragen.");
+		System.out.println("Config van alle aangesloten apparaten opvragen.");
 		System.out.println("-> server");
-		String response;
-
-		if (proxy == null) {
-			proxy = new ProxyOnsDomein();
-		}
 
 		if (proxy.connectClientToServer()) {
-
+			String response;
 			response = proxy.sendRequest("getConfig", " ");
 			System.out.println("Response: " + response);
 
-			response = response.replace(INTERSECTION, " ");
 			response = response.replace(STR_START, "");
-			response = response.replace("STR_STOP", "");
+			response = response.replace(STR_STOP, "");
 			System.out.println(response);
 			String[] tempArray;
-			tempArray = response.split(" ");
-			// System.out.println(tempArray.length + " apparaten gevonden.");
+			tempArray = response.split(INTERSECTION);
+
+			if (tempArray[0].contentEquals(EMPTY_RESPONSE) || tempArray[0].contentEquals("message"))
+				return;
 
 			ga.getDeviceList().clear();
 
 			for (String s : tempArray) {
 				String[] tempArray2 = s.split(SPACER);
-				if (tempArray[0].contentEquals(EMPTY_RESPONSE) || tempArray[0].contentEquals("message"))
-					return;
+
 				Device d = dfac.getDevice(tempArray2);
 				ga.getDeviceList().add(d);
 
 			}
-
+			proxy.closeConnection();
 		}
 
-		proxy.closeConnection();
 		return;
 
 	}
 
 	public void pushConfigToServer() {
 
-		configMsg = "[";
-		System.out.println("Status van alle aangesloten apparaten verzenden.");
-		System.out.println("-> server");
+//		System.out.println("Config van alle aangesloten apparaten verzenden.");
+//		System.out.println("-> server");
 
 		ArrayList<Device> devices = (ArrayList<Device>) ga.getDeviceList();
+		configMsg = "[";
 
 		// TYPE _ NAME _ PORT _ ON _ ACTIVE
 		for (Device d : devices) {
@@ -101,26 +86,19 @@ public class DeviceCommunicator implements Serializable {
 
 		configMsg += "]";
 
-		String response;
-		if (proxy == null) {
-			proxy = new ProxyOnsDomein();
-		}
-
 		if (proxy.connectClientToServer()) {
-
-			response = proxy.sendRequest("setConfig", configMsg);
+			String response = proxy.sendRequest("setConfig", configMsg);
 			System.out.println("Response: " + response);
-
+			proxy.closeConnection();
 		}
 
-		proxy.closeConnection();
 		return;
 
 	}
 
 	public void flipswitch(Device device) {
 
-		System.out.println("Schakelaar omzetten.");
+//		System.out.println("Schakelaar omzetten.");
 
 		int[] message = new int[3];
 		int whichValue = device.getSwitchedOn() ? 1 : 0; // van boolean naar int tbv protocol
@@ -132,12 +110,13 @@ public class DeviceCommunicator implements Serializable {
 		message[2] = whichValue;
 
 		sendmessage("setHc", message);
+		return;
 
 	}
 
 	public void altervalue(Device device) {
 
-		System.out.println("Waarde aanpassen.");
+//		System.out.println("Waarde aanpassen.");
 
 		int pinValue = ((Dimmable) device).getDimValue();
 		int[] message = new int[3];
@@ -150,12 +129,12 @@ public class DeviceCommunicator implements Serializable {
 		message[2] = whichValue;
 
 		sendmessage("setHc", message);
-
+		return;
 	}
 
 	public void requeststatus(Device device) {
 
-		System.out.println("Status opvragen.");
+//		System.out.println("Status opvragen.");
 
 		int[] message = new int[3];
 		int whichValue = device.getSwitchedOn() ? 1 : 0; // van boolean naar int tbv protocol
@@ -167,7 +146,7 @@ public class DeviceCommunicator implements Serializable {
 		message[2] = whichValue;
 
 		sendmessage("getHc", message);
-
+		return;
 	}
 
 	public void sendmessage(String action, int[] message) {
@@ -175,7 +154,7 @@ public class DeviceCommunicator implements Serializable {
 		int whichPin = message[0];
 		int whichAction = message[1];
 		int whichValue = message[2];
-		String msg = ARD_BOM + whichPin + ARD_DIVDER + whichAction + ARD_DIVDER + whichValue + ARD_EOM;
+		String msg = ARD_BOM + whichPin + ARD_DIVIDER + whichAction + ARD_DIVIDER + whichValue + ARD_EOM;
 
 		// System.out.println(msg);
 
@@ -186,20 +165,12 @@ public class DeviceCommunicator implements Serializable {
 
 		}
 
-		System.out.println("-> server");
-		String response;
-		if (proxy == null) {
-			proxy = new ProxyOnsDomein();
-		}
-
 		if (proxy.connectClientToServer()) {
-
-			response = proxy.sendRequest(action, msg);
+			System.out.println("-> server");
+			String response = proxy.sendRequest(action, msg);
 			System.out.println("Response: " + response);
-
+			proxy.closeConnection();
 		}
-
-		proxy.closeConnection();
 
 		return;
 
