@@ -14,7 +14,7 @@ import view.Main;
 
 @SuppressWarnings("serial")
 public class DeviceCommunicator implements Serializable, ArduinoConventions, ConfigProtocol {
-ffggf
+
 	transient private DeviceFactory dfac = new DeviceFactory();
 	transient private ProxyOnsDomein proxy;
 	transient private GebruikersApplicatie ga;
