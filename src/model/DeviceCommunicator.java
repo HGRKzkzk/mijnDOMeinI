@@ -1,5 +1,6 @@
 package model;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -18,6 +19,8 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 	transient private ProxyOnsDomein proxy;
 	transient private GebruikersApplicatie ga;
 	transient private String configMsg;
+	transient private String requestFromId = "123";
+	transient private String requestForId = "456";
 
 	public DeviceCommunicator() {
 		proxy = new ProxyOnsDomein();
@@ -33,22 +36,23 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 		System.out.println("Config van alle aangesloten apparaten opvragen.");
 		System.out.println("-> server");
 
-		if (proxy.connectClientToServer()) {
+		try {
+			proxy.connectClientToServer(requestFromId);
+		} catch (IOException e) {
+			System.out.println("Geen verbinding met server.");
+			return;
 
-			String response = proxy.sendRequest("getConfig", " ");
-			String checkedResponse = handleConfigResponse(response);
-			String[] tempArray = checkedResponse.split(INTERSECTION);
-
-			if (tempArray[0].contentEquals(EMPTY_RESPONSE) || tempArray[0].contentEquals("message"))
-				return;
-
-			ga.getDeviceList().clear();
-			getDevicesFromString(tempArray);
-			proxy.closeConnection();
 		}
+		String response = proxy.sendRequest("getConfig", requestFromId, requestForId, " ");
+		String checkedResponse = handleConfigResponse(response);
+		String[] tempArray = checkedResponse.split(INTERSECTION);
 
-		return;
+		if (tempArray[0].contentEquals(EMPTY_RESPONSE) || tempArray[0].contentEquals("message"))
+			return;
 
+		ga.getDeviceList().clear();
+		getDevicesFromString(tempArray);
+		proxy.closeConnection();
 	}
 
 	public String handleConfigResponse(String response) {
@@ -84,14 +88,17 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 		configMsg = "[" + generateConfigProtocolFromList(devices) + "]";
 		System.out.println(configMsg);
 
-		if (proxy.connectClientToServer()) {
-			String response = proxy.sendRequest("setConfig", configMsg);
-			System.out.println("Response: " + response);
-			proxy.closeConnection();
+		try {
+			proxy.connectClientToServer(requestFromId);
+		} catch (IOException e) {
+			System.out.println("Geen verbinding met server.");
+			return;
+
 		}
 
-		return;
-
+		String response = proxy.sendRequest("setConfig", requestFromId, requestForId, configMsg);
+		System.out.println("Response: " + response);
+		proxy.closeConnection();
 	}
 
 	public String generateConfigProtocolFromList(ArrayList<Device> devices) {
@@ -170,12 +177,17 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 
 		}
 
-		if (proxy.connectClientToServer()) {
-			System.out.println("-> server");
-			String response = proxy.sendRequest(action, msg);
-			System.out.println("Response: " + response);
-			proxy.closeConnection();
+		try {
+			proxy.connectClientToServer(requestFromId);
+		} catch (IOException e) {
+			System.out.println("Geen verbinding met server.");
+			return;
+
 		}
+		System.out.println("-> server");
+		String response = proxy.sendRequest(action, requestFromId, requestForId, msg);
+		System.out.println("Response: " + response);
+		proxy.closeConnection();
 
 		return;
 
