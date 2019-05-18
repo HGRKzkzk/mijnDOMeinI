@@ -1,5 +1,10 @@
 package controller;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -8,12 +13,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import model.Device;
+import model.SwitchableDevice;
 import view.Main;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class ApparatenControler implements Initializable {
 
@@ -26,10 +27,10 @@ public class ApparatenControler implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 		Main.getStage()
-		.setTitle(ScreenNames.Prefix.getDescription() + "  " + ScreenNames.ApparatenView.getDescription());
-				
+				.setTitle(ScreenNames.Prefix.getDescription() + "  " + ScreenNames.ApparatenView.getDescription());
+
 		showDeviceList();
 
 
@@ -42,46 +43,46 @@ public class ApparatenControler implements Initializable {
 		rootPane.getChildren().setAll(pane);
 
 	}
-	
+
 	@FXML
 	protected void showApparaatToevoegen(ActionEvent event) throws IOException {
-		
-		
+
+
 
 		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparaatToevoegen.fxml"));
 		rootPane.getChildren().setAll(pane);
 
 	}
-	
-	
-	
+
+
+
 	@FXML
 	protected void showApparaatVerwijderen(ActionEvent event) throws IOException {
-		
-		
+
+
 
 		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparatenVerwijderen.fxml"));
 		rootPane.getChildren().setAll(pane);
 
 	}
-	
-	
-	
+
+
+
 	protected void showDeviceList() {
-		
+
 
 		int i = 20;
 		for (Device device : deviceList) {
-			
-			
+
+
 
 			Button deviceButton = new Button(device.getName());
 			deviceButton.setTranslateY(-200 + i);
-			
-			if (device.getSwitchedOn()) {
-				
+
+			if (((SwitchableDevice) device).getSwitchedOn()) {
+
 				deviceButton.getStyleClass().add("switchedOn");
-				
+
 			}
 
 			deviceButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -109,9 +110,9 @@ public class ApparatenControler implements Initializable {
 			i += 33;
 
 		}
-		
- 
-		
+
+
+
 	}
 
 }

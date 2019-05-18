@@ -1,11 +1,11 @@
 package model;
 
-import interfaces.Nameable;
-import interfaces.Switchable;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import interfaces.Nameable;
+import interfaces.Switchable;
 
 @SuppressWarnings("serial")
 public class Cluster implements Serializable, Nameable, Switchable {
@@ -22,23 +22,20 @@ public class Cluster implements Serializable, Nameable, Switchable {
 
 	}
 
-	public void addDeviceToCluster(Device device) {
-
+	public void addDeviceToCluser(Device device) {
 		this.devicesInCLuster.add(device);
-
 	}
 
 	public void removeDeviceFromCluser(Device device) {
-
 		this.devicesInCLuster.remove(device);
-
 	}
 
 	public void switchOn() {
 		System.out.println("CLuster aanzetten");
+
 		for (Device device : devicesInCLuster) {
 			if (device.isActivated())
-				device.switchOn();
+				((Switchable) device).switchOn();
 
 		}
 
@@ -48,9 +45,10 @@ public class Cluster implements Serializable, Nameable, Switchable {
 
 	public void switchOff() {
 		System.out.println("CLuster uitzetten");
+
 		for (Device device : devicesInCLuster) {
 			if (device.isActivated())
-				device.switchOff();
+				((Switchable) device).switchOff();
 
 		}
 		this.switchedOn = false;
@@ -58,7 +56,6 @@ public class Cluster implements Serializable, Nameable, Switchable {
 	}
 
 	public String giveClusterContentsAsString() {
-
 		String str = "";
 		for (Device device : devicesInCLuster) {
 			str += device.getName() + ", ";
@@ -116,7 +113,7 @@ public class Cluster implements Serializable, Nameable, Switchable {
 		int switchedonCount = 0;
 
 		for (Device device : devicesInCLuster) {
-			if (device.getSwitchedOn())
+			if (((SwitchableDevice) device).getSwitchedOn())
 				switchedonCount++;
 		}
 
@@ -125,6 +122,12 @@ public class Cluster implements Serializable, Nameable, Switchable {
 
 		return false;
 
+	}
+
+	@Override
+	public boolean getSwitchedOn() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

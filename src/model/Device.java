@@ -14,11 +14,6 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 	protected boolean switchedOn;
 	protected boolean activated;
 
-	public abstract boolean getSwitchedOn();
-	public abstract void setSwitchedOn(boolean b);
-	protected abstract void switchOn();
-	protected abstract void switchOff();
-
 	public Device(String name, int port) {
 
 		dCom = new DeviceCommunicator();

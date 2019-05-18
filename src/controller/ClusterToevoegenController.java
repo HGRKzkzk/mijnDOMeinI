@@ -1,5 +1,11 @@
 package controller;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
 import interfaces.Nameable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,13 +17,8 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
 import model.Cluster;
 import model.Device;
+import model.SwitchableDevice;
 import view.Main;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.ResourceBundle;
 
 public class ClusterToevoegenController implements Initializable {
 
@@ -54,14 +55,14 @@ public class ClusterToevoegenController implements Initializable {
 		if (result.isPresent()) {
 			name = result.get();
 		}
-		 else {
-			 return;
-			}
+		else {
+			return;
+		}
 
-		
+
 		Cluster cluster = new Cluster(name);
 		for (Device device : selectedDeviceList) {
-			cluster.addDeviceToCluster(deviceList.get
+			cluster.addDeviceToCluser(deviceList.get
 					(deviceList.indexOf(device)));
 		}
 
@@ -74,9 +75,9 @@ public class ClusterToevoegenController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 		Main.getStage()
-		.setTitle(ScreenNames.Prefix.getDescription() + " " +   ScreenNames.ClusterToevoegen.getDescription());
+				.setTitle(ScreenNames.Prefix.getDescription() + " " +   ScreenNames.ClusterToevoegen.getDescription());
 
 		checkAmmount();
 		showDeviceList();
@@ -84,7 +85,7 @@ public class ClusterToevoegenController implements Initializable {
 	}
 
 	public void checkAmmount() {
- 
+
 		if (selectedDeviceList.size() == 1 || selectedDeviceList.size() == 0   ) {
 			saveButton.setDisable(true);
 		}
@@ -103,7 +104,7 @@ public class ClusterToevoegenController implements Initializable {
 			Button deviceButton = new Button(device.getName());
 			deviceButton.setTranslateY(-200 + i);
 
-			if (device.getSwitchedOn()) {
+			if (((SwitchableDevice) device).getSwitchedOn()) {
 
 				// deviceButton.getStyleClass().add("switchedOn");
 

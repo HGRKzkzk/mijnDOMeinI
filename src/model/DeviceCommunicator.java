@@ -108,7 +108,7 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 			String type = d.getClass().getSimpleName();
 			String name = d.getName();
 			int port = d.getPort();
-			boolean isOn = d.getSwitchedOn();
+			boolean isOn = ((SwitchableDevice) d).getSwitchedOn();
 			boolean isActive = d.isActivated();
 			result += MSG_START + type + SPACER + name + SPACER + port + SPACER + isOn + SPACER + isActive + MSG_STOP;
 
@@ -122,7 +122,7 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 
 //		System.out.println("Schakelaar omzetten.");
 
-		int whichValue = device.getSwitchedOn() ? 1 : 0; // van boolean naar int tbv protocol
+		int whichValue = ((SwitchableDevice) device).getSwitchedOn() ? 1 : 0; // van boolean naar int tbv protocol
 		int whichPin = device.getPort();
 		int whichAction = ArduinoRequests.switchPin.num;
 
@@ -151,7 +151,7 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 
 //		System.out.println("Status opvragen.");
 
-		int whichValue = device.getSwitchedOn() ? 1 : 0; // van boolean naar int tbv protocol
+		int whichValue = ((SwitchableDevice) device).getSwitchedOn() ? 1 : 0; // van boolean naar int tbv protocol
 		int whichPin = device.getPort();
 		int whichAction = ArduinoRequests.getStatus.num;
 
