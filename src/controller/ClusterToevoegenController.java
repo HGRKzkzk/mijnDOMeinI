@@ -17,7 +17,6 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
 import model.Cluster;
 import model.Device;
-import model.SwitchableDevice;
 import view.Main;
 
 public class ClusterToevoegenController implements Initializable {
@@ -62,7 +61,7 @@ public class ClusterToevoegenController implements Initializable {
 		
 		Cluster cluster = new Cluster(name);
 		for (Device device : selectedDeviceList) {
-			cluster.addDeviceToCluser(deviceList.get
+			cluster.addDeviceToCluster(deviceList.get
 					(deviceList.indexOf(device)));
 		}
 

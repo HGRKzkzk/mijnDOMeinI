@@ -63,9 +63,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 	}
 
 	public boolean validatePort(int port) {
-		if (port < maxPort && port > minPort)
-			return true;
-		return false;
+		return (port < maxPort && port > minPort);
 
 	}
 
@@ -80,15 +78,15 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 			this.name = standardName;
 		}
 
+		/* Deze return doet niks, wellicht changeName ook een boolean laten retouneren net zoals changePort.
+		Als ie nu hier komt omdat validateName false retourneert dan wordt dit niet goed verwerkt.
+		 */
 		return;
 
 	}
 
 	public boolean validateName(String name) {
-
-		if (name.length() <= maxNamelength && name.length() > 0)
-			return true;
-		return false;
+		return (name.length() <= maxNamelength && name.length() > 0);
 	}
 
 	public String getName() {
@@ -105,14 +103,13 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 
 	public void requestCurrentValue() {
 		getdCom().requeststatus(this);
-		return;
 	}
 
 	public void switchOn() {
 
 		if (getdCom().flipswitch(this)) {
 			this.switchedOn = true;
-		};
+		}
 		
 	}
 
@@ -120,7 +117,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 
 		if (getdCom().flipswitch(this)) {
 			this.switchedOn = false;
-		};
+		}
 
 		
 
@@ -131,9 +128,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 
 		if (getdCom().flipswitch(this)) {
 			this.switchedOn = b;
-		};
-		
-		
+		}
 		
 
 	}

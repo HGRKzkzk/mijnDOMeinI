@@ -100,7 +100,7 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 		String response = proxy.sendRequest("setConfig", requestFromId, requestForId, configMsg);
 		System.out.println("Response: " + response);
 		proxy.closeConnection();
-		return response.equals("setConfigOK") ? true : false;
+		return response.equals("setConfigOK");
 	}
 
 	public String generateConfigProtocolFromList(ArrayList<Device> devices) {
