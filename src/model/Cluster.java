@@ -11,7 +11,7 @@ import interfaces.Switchable;
 public class Cluster implements Serializable, Nameable, Switchable {
 
 	private String name;
-	private List<Device> devicesInCLuster = new ArrayList<Device>();
+	private List<Device> devicesInCluster = new ArrayList<>();
 	private boolean switchedOn;
 	private boolean activated;
 
@@ -22,18 +22,18 @@ public class Cluster implements Serializable, Nameable, Switchable {
 
 	}
 
-	public void addDeviceToCluser(Device device) {
-		this.devicesInCLuster.add(device);
+	public void addDeviceToCluster(Device device) {
+		this.devicesInCluster.add(device);
 	}
 
-	public void removeDeviceFromCluser(Device device) {
-		this.devicesInCLuster.remove(device);
+	public void removeDeviceFromCluster(Device device) {
+		this.devicesInCluster.remove(device);
 	}
 
 	public void switchOn() {
-		System.out.println("CLuster aanzetten");
+		System.out.println("Cluster aanzetten");
 	
-		for (Device device : devicesInCLuster) {
+		for (Device device : devicesInCluster) {
 			if (device.isActivated())
 				device.switchOn();
 
@@ -44,10 +44,10 @@ public class Cluster implements Serializable, Nameable, Switchable {
 	}
 
 	public void switchOff() {
-		System.out.println("CLuster uitzetten");
+		System.out.println("Cluster uitzetten");
 		
 
-		for (Device device : devicesInCLuster) {
+		for (Device device : devicesInCluster) {
 			if (device.isActivated())
 				device.switchOff();
 
@@ -58,16 +58,15 @@ public class Cluster implements Serializable, Nameable, Switchable {
 
 	public String giveClusterContentsAsString() {
 		String str = "";
-		for (Device device : devicesInCLuster) {
+		for (Device device : devicesInCluster) {
 			str += device.getName() + ", ";
 		}
-		String contents = str.substring(0, str.length() - 2);
-		return contents;
 
+		return str.substring(0, str.length() - 2);
 	}
 
-	public List<Device> getDevicesInCLuster() {
-		return devicesInCLuster;
+	public List<Device> getDevicesInCluster() {
+		return devicesInCluster;
 	}
 
 	public String getName() {
@@ -97,15 +96,14 @@ public class Cluster implements Serializable, Nameable, Switchable {
 			this.name = standardName;
 		}
 
+		// Zelfde opmerking van toepassing als bij Device
 		return;
 
 	}
 
 	public boolean validateName(String name) {
 
-		if (name.length() <= maxNamelength && name.length() > 0 && !name.isEmpty())
-			return true;
-		return false;
+		return (name.length() <= maxNamelength && name.length() > 0 && !name.isEmpty());
 	}
 	
 
@@ -114,15 +112,15 @@ public class Cluster implements Serializable, Nameable, Switchable {
 
 		int switchedonCount = 0;
 
-		for (Device device : devicesInCLuster) {
+		for (Device device : devicesInCluster) {
 			if (((SwitchableDevice) device).getSwitchedOn())
 				switchedonCount++;
 		}
 
-		if (switchedonCount > (devicesInCLuster.size() / 2))
+		if (switchedonCount > (devicesInCluster.size() / 2))
 			return; // true als tenminste de helft van de apparaten in de cluster aan staat
 
-		
+
 
 	}
 

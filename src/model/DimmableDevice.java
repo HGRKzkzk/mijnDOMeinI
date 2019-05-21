@@ -7,23 +7,23 @@ import interfaces.Dimmable;
 @SuppressWarnings("serial")
 public class DimmableDevice extends DigitalDevice implements Dimmable, Serializable {
 
-	private int dimvalue = 100;
+	private int dimValue = 100;
 
 	public DimmableDevice(String name, int port) {
 		super(name, port);
 
 	}
 
-	public DimmableDevice(String naam, int pin, boolean switchedon, boolean active) {
-		super(naam, pin, switchedon, active);
+	public DimmableDevice(String naam, int pin, boolean switchedOn, boolean active) {
+		super(naam, pin, switchedOn, active);
 
 	}
 
 	
-	public void setDimValue(int newvalue) {
+	public void setDimValue(int newValue) {
 		
 		if(super.getdCom().altervalue(this)) {
-			this.dimvalue = newvalue;	
+			this.dimValue = newValue;
 		}
 
 	}
@@ -31,7 +31,7 @@ public class DimmableDevice extends DigitalDevice implements Dimmable, Serializa
  
 
 	public int getDimValue() {
-		return this.dimvalue;
+		return this.dimValue;
 
 	}
 
