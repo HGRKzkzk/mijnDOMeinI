@@ -13,11 +13,9 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 	private int port;
 	private boolean switchedOn;
 	private boolean activated;
-	
-	int id;
-	
 
- 
+	int id;
+
 	public Device(String name, int port) {
 
 		setdCom(new DeviceCommunicator());
@@ -25,7 +23,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 		changeName(name);
 		switchedOn = true;
 		activated = true;
-		
+
 		generateAndSetID();
 
 	}
@@ -40,11 +38,11 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 		generateAndSetID();
 
 	}
-	
-	public  void generateAndSetID() {
-		//TODO ID generator bouwen		
+
+	public void generateAndSetID() {
+		// TODO ID generator bouwen
 		this.id = 1;
- 	}
+	}
 
 	public boolean isActivated() {
 		return activated;
@@ -104,31 +102,39 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 		return this.port;
 
 	}
-	
 
 	public void requestCurrentValue() {
 		getdCom().requeststatus(this);
 		return;
 	}
 
-	
-	
-
 	public void switchOn() {
-		this.switchedOn = true;
-		getdCom().flipswitch(this);
 
+		if (getdCom().flipswitch(this)) {
+			this.switchedOn = true;
+		};
+		
 	}
 
 	public void switchOff() {
-		this.switchedOn = false;
-		getdCom().flipswitch(this);
+
+		if (getdCom().flipswitch(this)) {
+			this.switchedOn = false;
+		};
+
+		
 
 	}
 
 	public void setSwitchedOn(boolean b) {
-		this.switchedOn = b;
-		getdCom().flipswitch(this);
+
+
+		if (getdCom().flipswitch(this)) {
+			this.switchedOn = b;
+		};
+		
+		
+		
 
 	}
 

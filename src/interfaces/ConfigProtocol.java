@@ -11,5 +11,6 @@ public interface ConfigProtocol {
 	String MSG_START = "<<";
 	String MSG_STOP = ">>";
 	String EMPTY_RESPONSE = "[]";
+	String EMPTY = "";
 
 }

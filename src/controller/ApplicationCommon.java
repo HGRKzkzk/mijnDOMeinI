@@ -7,7 +7,6 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
-import jserial.jSerialcomm;
 import persistance.SerializeHandler;
 
 public class ApplicationCommon {
@@ -18,7 +17,6 @@ public class ApplicationCommon {
 
  
 			SerializeHandler.saveAsSerializedData();
-			jSerialcomm.close();
 			Platform.exit();
 			System.exit(0);
 			return true;

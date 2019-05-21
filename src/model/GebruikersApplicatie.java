@@ -5,7 +5,7 @@ import java.io.InvalidClassException;
 import java.util.ArrayList;
 import java.util.List;
 
-import jserial.jSerialcomm;
+
 import persistance.SerializeHandler;
 
 public class GebruikersApplicatie {
@@ -29,29 +29,13 @@ public class GebruikersApplicatie {
 			e1.printStackTrace();
 		}
 
-		checkArduinoMode();
+
 
 		DeviceCommunicator.requestConfigFromServer();
 		// DeviceCommunicator.pushConfigToServer();
 	}
-
-	public void switchArduinoMode() {
-		// jSerialcomm.close();
-		this.directToArduino = !this.directToArduino;
-		System.out.println("Direct to Arduino mode is: " + directToArduino);
-		// checkArduinoMode();
-		return;
-
-	}
-
-	private void checkArduinoMode() {
-		if (!jSerialcomm.connect() & directToArduino) {
-			System.out.println("Arduino not found. Connect Arduino or change settings.");
-		}
-		System.out.println("Direct to Arduino mode is: " + directToArduino);
-		return;
-
-	}
+ 
+ 
 
 	public DeviceCommunicator getDcom() {
 		return DeviceCommunicator;

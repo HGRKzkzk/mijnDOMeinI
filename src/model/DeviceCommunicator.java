@@ -7,11 +7,7 @@ import java.util.ArrayList;
 import interfaces.ArduinoConventions;
 import interfaces.ConfigProtocol;
 import interfaces.Dimmable;
-import interfaces.Switchable;
-import jserial.ArduinoRequests;
-import jserial.jSerialcomm;
 import proxy.ProxyOnsDomein;
-import view.Main;
 
 @SuppressWarnings("serial")
 public class DeviceCommunicator implements Serializable, ArduinoConventions, ConfigProtocol {
@@ -21,7 +17,7 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 	transient private GebruikersApplicatie ga;
 	transient private String configMsg;
 	transient private String requestFromId = "123";
-	transient private String requestForId = "456";
+	transient private String requestForId = "5678";
 
 	public DeviceCommunicator() {
 		proxy = new ProxyOnsDomein();
@@ -44,6 +40,7 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 			return;
 
 		}
+
 		String uncheckedResponse = proxy.sendRequest("getConfig", requestFromId, requestForId, " ");
 		String checkedResponse = handleConfigResponse(uncheckedResponse);
 		String[] tempArray = checkedResponse.split(INTERSECTION);
@@ -58,7 +55,7 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 	}
 
 	public String handleConfigResponse(String response) {
-		String checkedResponse;
+
 		System.out.println("Response: " + response);
 		response = response.replace(STR_START, "");
 		response = response.replace(STR_STOP, "");
@@ -66,9 +63,8 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 		if (response.equals(null)) {
 			response = "message";
 		}
-		checkedResponse = response;
 
-		return checkedResponse;
+		return response;
 
 	}
 
@@ -90,7 +86,7 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 //		System.out.println("-> server");
 
 		ArrayList<Device> devices = (ArrayList<Device>) ga.getDeviceList();
-		configMsg = "[" + generateConfigProtocolFromList(devices) + "]";
+		configMsg = OBJECT_START + generateConfigProtocolFromList(devices) + OBJECT_END;
 		System.out.println(configMsg);
 
 		try {
@@ -116,7 +112,8 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 			int port = d.getPort();
 			boolean isOn = d.getSwitchedOn();
 			boolean isActive = d.isActivated();
-			result += MSG_START + type + SPACER + name + SPACER + port + SPACER + isOn + SPACER + isActive + SPACER + id + MSG_STOP;
+			result += MSG_START + type + SPACER + name + SPACER + port + SPACER + isOn + SPACER + isActive + SPACER + id
+					+ MSG_STOP;
 
 		}
 
@@ -128,7 +125,7 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 
 	}
 
-	public void flipswitch(Device device) {
+	public boolean flipswitch(Device device) {
 
 //		System.out.println("Schakelaar omzetten.");
 
@@ -138,11 +135,11 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 
 		int[] message = new int[] { whichPin, whichAction, whichValue };
 
-		sendmessage("setHc", message);
+		return sendmessage("setHc", message);
 
 	}
 
-	public void altervalue(Device device) {
+	public boolean altervalue(Device device) {
 
 //		System.out.println("Waarde aanpassen.");
 
@@ -152,11 +149,11 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 
 		int[] message = new int[] { whichPin, whichAction, whichValue };
 
-		sendmessage("setHc", message);
+		return sendmessage("setHc", message);
 
 	}
 
-	public void requeststatus(Device device) {
+	public boolean requeststatus(Device device) {
 
 //		System.out.println("Status opvragen.");
 
@@ -166,11 +163,11 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 
 		int[] message = new int[] { whichPin, whichAction, whichValue };
 
-		sendmessage("getHc", message);
+		return sendmessage("getHc", message);
 
 	}
 
-	public void sendmessage(String action, int[] message) {
+	public boolean sendmessage(String action, int[] message) {
 		int whichPin = message[0];
 		int whichAction = message[1];
 		int whichValue = message[2];
@@ -179,22 +176,16 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 
 		System.out.println(msg);
 
-		if (Main.getGa().isDirectToArduino()) {
-			System.out.println("-> arduino");
-			jSerialcomm.sendProtocolData(whichPin, whichAction, whichValue);
-
-		}
-
 		try {
 
-			proxy = new ProxyOnsDomein();
-			requestFromId = "123";
-			requestForId = "456";
+			if (proxy.equals(null)) {
+				proxy = new ProxyOnsDomein();
+			}
 
 			proxy.connectClientToServer(requestFromId);
 		} catch (IOException e) {
 			System.out.println("Geen verbinding met server.");
-			return;
+			return false;
 
 		}
 		System.out.println("-> server");
@@ -202,6 +193,11 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 		System.out.println("Response: " + response);
 		proxy.closeConnection();
 
+		if (response.equals("No connection with HC")) {
+			return false;
+		}
+
+		return true;
 	}
 
 }

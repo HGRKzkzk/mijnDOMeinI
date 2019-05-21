@@ -1,4 +1,4 @@
-package jserial;
+package model;
 
 public enum ArduinoRequests {
 	getStatus(0),

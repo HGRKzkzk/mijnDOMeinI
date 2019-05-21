@@ -41,12 +41,7 @@ public class SettingsController implements Initializable {
 
 	}
 
-	@FXML
-	protected void arduinoMode(ActionEvent event) {
-
-		Main.getGa().switchArduinoMode();
-
-	}
+ 
 
 	@FXML
 	protected void back(ActionEvent event) throws IOException {
