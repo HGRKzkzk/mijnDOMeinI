@@ -8,6 +8,6 @@ public interface Dimmable extends Switchable {
 	
 	void setDimValue(int newvalue);
 	int getDimValue();
-	boolean validateDimvalue();
+	
 
 }

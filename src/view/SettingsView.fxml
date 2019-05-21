@@ -1,44 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
-<?import javafx.scene.layout.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<GridPane fx:id="rootPane" fx:controller="controller.SettingsController" xmlns:fx="http://javafx.com/fxml"
-		  alignment="center" hgap="5" vgap="5" >
+
+<GridPane fx:id="rootPane" fx:controller="controller.SettingsController" xmlns:fx="http://javafx.com/fxml" 
+alignment="center" hgap="5" vgap="5" >
 
 
-<Label text="Server IP"
-	   GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-
-	<TextField  promptText="Server adres" fx:id="serverIP"
+		<Label text="Server adress"  
+        GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+		<TextField  promptText="Server adres" fx:id="serverAdress"
 		GridPane.columnIndex="1" GridPane.rowIndex="0" />
-		
-		
 		
 		<Label text="Time-out (ms)"  
         GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-
-	<TextField  promptText="Time out" fx:id="timeOut"
+		<TextField  promptText="Time out" fx:id="timeOut"
 		GridPane.columnIndex="1" GridPane.rowIndex="1" />
-		
-		
-		
-		
-
-	<Label text="Direct to Arduino"  
+	
+		<Label text="Direct to Arduino"  
         GridPane.columnIndex="0" GridPane.rowIndex="2"/>	
-	
-	
-	<Button text="Direct to Arduino" onAction="#showConsole"
+		<Button text="Direct to Arduino" onAction="#arduinoMode"
         GridPane.columnIndex="1" GridPane.rowIndex="2"/>	
 	
-	
-	<Button text="Console tonen" onAction="#showConsole"
+		<Button text="Console tonen" onAction="#showConsole"
         GridPane.columnIndex="1" GridPane.rowIndex="3"/>	
 
-
-    <Button text="Terug" onAction="#back"
+    	<Button text="Terug" onAction="#back"
         GridPane.columnIndex="1" GridPane.rowIndex="12"/>
 
  

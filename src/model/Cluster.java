@@ -18,7 +18,7 @@ public class Cluster implements Serializable, Nameable, Switchable {
 	public Cluster(String name) {
 
 		changeName(name);
-		this.switchedOn = requestCurrentValue();
+		
 
 	}
 
@@ -32,10 +32,10 @@ public class Cluster implements Serializable, Nameable, Switchable {
 
 	public void switchOn() {
 		System.out.println("CLuster aanzetten");
-
+	
 		for (Device device : devicesInCLuster) {
 			if (device.isActivated())
-				((Switchable) device).switchOn();
+				device.switchOn();
 
 		}
 
@@ -45,10 +45,11 @@ public class Cluster implements Serializable, Nameable, Switchable {
 
 	public void switchOff() {
 		System.out.println("CLuster uitzetten");
+		
 
 		for (Device device : devicesInCLuster) {
 			if (device.isActivated())
-				((Switchable) device).switchOff();
+				device.switchOff();
 
 		}
 		this.switchedOn = false;
@@ -106,9 +107,10 @@ public class Cluster implements Serializable, Nameable, Switchable {
 			return true;
 		return false;
 	}
+	
 
 	@Override
-	public boolean requestCurrentValue() {
+	public void requestCurrentValue() {
 
 		int switchedonCount = 0;
 
@@ -118,9 +120,9 @@ public class Cluster implements Serializable, Nameable, Switchable {
 		}
 
 		if (switchedonCount > (devicesInCLuster.size() / 2))
-			return true; // true als tenminste de helft van de apparaten in de cluster aan staat
+			return; // true als tenminste de helft van de apparaten in de cluster aan staat
 
-		return false;
+		
 
 	}
 

@@ -41,6 +41,10 @@ public class ApparaatDetailsController implements Initializable {
 	private Button buttonOff;
 	@FXML
 	private Label deviceType;
+	@FXML
+	private Label deviceID;
+	
+	
 
 	public void setStageTitle(String newTitle) {
 		Main.getStage().setTitle(newTitle);
@@ -93,7 +97,7 @@ public class ApparaatDetailsController implements Initializable {
 						// slider.setShowTickLabels(true);
 
 						slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-
+							
 							dm.setDimValue(newValue.intValue());
 
 						});
@@ -106,7 +110,7 @@ public class ApparaatDetailsController implements Initializable {
 
 					}
 
-					if (!((SwitchableDevice) device).getSwitchedOn()) {
+					if (!device.getSwitchedOn()) {
 
 						slider.setVisible(false);
 
@@ -117,18 +121,20 @@ public class ApparaatDetailsController implements Initializable {
 
 		}
 
-		deviceType.setText(getDevice().getClass().getSimpleName() + "   (" +  getDevice().getClass().getSuperclass().getSimpleName() + ")");
-
-		deviceState.setText(String.valueOf(((SwitchableDevice) getDevice()).getSwitchedOn()));
+		deviceType.setText(getDevice().getClass().getSimpleName() + "   (" +  getDevice().getClass().getSuperclass().getSimpleName() + ")"); 
+				
+		deviceState.setText(String.valueOf((getDevice()).getSwitchedOn()));
 		deviceActive.setText(String.valueOf(getDevice().isActivated()));
-		buttonOn.setDisable(((SwitchableDevice) getDevice()).getSwitchedOn());
-		buttonOff.setDisable(!((SwitchableDevice) getDevice()).getSwitchedOn());
+		buttonOn.setDisable((getDevice()).getSwitchedOn());
+		buttonOff.setDisable(!getDevice().getSwitchedOn());
+		deviceID.setText("fsfsfsfss");
+		
 
 	}
 
 	@FXML
 	protected void switchOn(ActionEvent event) throws IOException {
-		((SwitchableDevice) getDevice()).setSwitchedOn(true);
+		 (getDevice()).setSwitchedOn(true);
 
 		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparaatDetails.fxml"));
 		rootPane.getChildren().setAll(pane);
@@ -138,7 +144,7 @@ public class ApparaatDetailsController implements Initializable {
 	@FXML
 	protected void switchOff(ActionEvent event) throws IOException {
 
-		((SwitchableDevice) getDevice()).setSwitchedOn(false);
+		 getDevice().setSwitchedOn(false);
 
 		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparaatDetails.fxml"));
 		rootPane.getChildren().setAll(pane);
@@ -146,6 +152,15 @@ public class ApparaatDetailsController implements Initializable {
 	}
 
 	public void backToApparatenView() {
+
+	}
+	
+	public void requestStatus() throws IOException {
+		
+		device.requestCurrentValue();
+		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparaatDetails.fxml"));
+		rootPane.getChildren().setAll(pane);
+		
 
 	}
 

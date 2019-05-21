@@ -1,17 +1,16 @@
-package view;
+ package view;
 
+import java.io.IOException;
 import controller.ApplicationCommon;
 import controller.ControllerData;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.GebruikersApplicatie;
-
-import java.io.IOException;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 public class Main extends Application {
 

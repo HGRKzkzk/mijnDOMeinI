@@ -2,12 +2,14 @@ package interfaces;
 
 public interface ConfigProtocol {
 	
-	final String SPACER = "_";
-	final String INTERSECTION = "><<";
-	final String STR_START = "[<<";
-	final String STR_STOP = ">>]";
-	final String MSG_START = "<<";
-	final String MSG_STOP = ">>";
-	final String EMPTY_RESPONSE = "[]";
+	String OBJECT_START = "[";
+	String OBJECT_END = "]";
+	String SPACER = "_";
+	String INTERSECTION = "><<";
+	String STR_START = "[<<";
+	String STR_STOP = ">>]";
+	String MSG_START = "<<";
+	String MSG_STOP = ">>";
+	String EMPTY_RESPONSE = "[]";
 
 }

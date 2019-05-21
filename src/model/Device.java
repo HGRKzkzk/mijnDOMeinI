@@ -1,39 +1,50 @@
 package model;
 
+import java.io.Serializable;
+
 import interfaces.Nameable;
 import interfaces.PortHandler;
-
-import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public abstract class Device implements Nameable, PortHandler, Serializable {
 
-	protected DeviceCommunicator dCom;
+	private DeviceCommunicator dCom;
 	private String name;
 	private int port;
-	protected boolean switchedOn;
-	protected boolean activated;
+	private boolean switchedOn;
+	private boolean activated;
+	
+	int id;
+	
 
+ 
 	public Device(String name, int port) {
 
-		dCom = new DeviceCommunicator();
+		setdCom(new DeviceCommunicator());
 		changePort(port);
 		changeName(name);
 		switchedOn = true;
 		activated = true;
+		
+		generateAndSetID();
 
 	}
 
 	public Device(String name, int port, boolean on, boolean active) {
 
-		dCom = new DeviceCommunicator();
+		setdCom(new DeviceCommunicator());
 		changePort(port);
 		changeName(name);
-		switchedOn = on;
-		System.out.println(active);
-		activated = active;
+		this.switchedOn = on;
+		this.activated = true; // hier gebeuren ander onverklaarbare dingen..?
+		generateAndSetID();
 
 	}
+	
+	public  void generateAndSetID() {
+		//TODO ID generator bouwen		
+		this.id = 1;
+ 	}
 
 	public boolean isActivated() {
 		return activated;
@@ -92,6 +103,46 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 
 		return this.port;
 
+	}
+	
+
+	public void requestCurrentValue() {
+		getdCom().requeststatus(this);
+		return;
+	}
+
+	
+	
+
+	public void switchOn() {
+		this.switchedOn = true;
+		getdCom().flipswitch(this);
+
+	}
+
+	public void switchOff() {
+		this.switchedOn = false;
+		getdCom().flipswitch(this);
+
+	}
+
+	public void setSwitchedOn(boolean b) {
+		this.switchedOn = b;
+		getdCom().flipswitch(this);
+
+	}
+
+	public boolean getSwitchedOn() {
+
+		return this.switchedOn;
+	}
+
+	public DeviceCommunicator getdCom() {
+		return dCom;
+	}
+
+	public void setdCom(DeviceCommunicator dCom) {
+		this.dCom = dCom;
 	}
 
 }

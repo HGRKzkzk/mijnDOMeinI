@@ -55,11 +55,11 @@ public class ClusterToevoegenController implements Initializable {
 		if (result.isPresent()) {
 			name = result.get();
 		}
-		else {
-			return;
-		}
+		 else {
+			 return;
+			}
 
-
+		
 		Cluster cluster = new Cluster(name);
 		for (Device device : selectedDeviceList) {
 			cluster.addDeviceToCluser(deviceList.get
@@ -75,9 +75,9 @@ public class ClusterToevoegenController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		
 		Main.getStage()
-				.setTitle(ScreenNames.Prefix.getDescription() + " " +   ScreenNames.ClusterToevoegen.getDescription());
+		.setTitle(ScreenNames.Prefix.getDescription() + " " +   ScreenNames.ClusterToevoegen.getDescription());
 
 		checkAmmount();
 		showDeviceList();
@@ -85,7 +85,7 @@ public class ClusterToevoegenController implements Initializable {
 	}
 
 	public void checkAmmount() {
-
+ 
 		if (selectedDeviceList.size() == 1 || selectedDeviceList.size() == 0   ) {
 			saveButton.setDisable(true);
 		}
@@ -104,7 +104,7 @@ public class ClusterToevoegenController implements Initializable {
 			Button deviceButton = new Button(device.getName());
 			deviceButton.setTranslateY(-200 + i);
 
-			if (((SwitchableDevice) device).getSwitchedOn()) {
+			if (device.getSwitchedOn()) {
 
 				// deviceButton.getStyleClass().add("switchedOn");
 

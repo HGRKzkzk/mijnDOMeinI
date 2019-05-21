@@ -1,11 +1,11 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.Cluster;
 import model.Device;
 import view.Main;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ControllerData {
 	

@@ -2,8 +2,8 @@ package interfaces;
 
 public interface ArduinoConventions {
 	
-	final String ARD_DIVIDER = ":";
-	final String ARD_BOM = "<";
-	final String ARD_EOM = ">";
+	String ARD_DIVIDER = ":";
+	String ARD_BOM = "<";
+	String ARD_EOM = ">";
 
 }
