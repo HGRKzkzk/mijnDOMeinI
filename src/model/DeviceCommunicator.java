@@ -129,7 +129,7 @@ public class DeviceCommunicator implements Serializable, ArduinoConventions, Con
 
 //		System.out.println("Schakelaar omzetten.");
 
-		int whichValue = device.getSwitchedOn() ? 1 : 0; // van boolean naar int tbv protocol
+		int whichValue = device.getSwitchedOn() ? 0 : 1; // van boolean naar int tbv protocol
 		int whichPin = device.getPort();
 		int whichAction = ArduinoRequests.switchPin.num;
 
