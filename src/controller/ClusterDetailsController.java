@@ -108,6 +108,15 @@ public class ClusterDetailsController implements Initializable {
 
 	}
 	
+	public void requestStatus() throws IOException {
+		
+		cluster.requestCurrentValue();
+		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ClusterDetails.fxml"));
+		rootPane.getChildren().setAll(pane);
+		
+
+	}
+	
 	
 	public void backToApparatenView() {
 		

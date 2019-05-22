@@ -4,8 +4,7 @@ public enum DeviceTypes {
 	
 	   READONLY("Alleen uitleesbaar"),
 	   SWITCHABLE("Schakelbaar"),
-	   DIMMABLE("Dimbaar"),
-	   TEST("Test");
+	   DIMMABLE("Dimbaar");
 	    
 	    
 	    private final String description;  

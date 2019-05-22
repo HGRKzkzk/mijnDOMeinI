@@ -57,6 +57,7 @@ public class ApparaatInstellingenController implements Initializable {
 		if (result.get() == ButtonType.OK) {
 
 			deviceList.remove(device);
+			ApplicationCommon.pushToServer();
 			GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparatenView.fxml"));
 			rootPane.getChildren().setAll(pane);
 		} else {
@@ -83,7 +84,7 @@ public class ApparaatInstellingenController implements Initializable {
 
 		device.changeName(deviceName.textProperty().getValue());
 		device.changePort(Integer.parseInt(devicePort.textProperty().getValue()));
-
+		ApplicationCommon.pushToServer();
 		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparatenView.fxml"));
 		rootPane.getChildren().setAll(pane);
 

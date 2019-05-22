@@ -1,12 +1,19 @@
 package persistance;
 
-import model.Cluster;
-import model.Device;
-import view.Main;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InvalidClassException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Device;
+import model.Cluster;
+import view.Main;
 
 public class SerializeHandler {
 	
@@ -20,7 +27,7 @@ public class SerializeHandler {
 	 	clusterList = (ArrayList<Cluster>) Main.getGa().getClusterList();
 
 		// saveDeviceList();
-		// saveClusterList();
+		saveClusterList();
 
 	}
 
@@ -87,7 +94,7 @@ public class SerializeHandler {
 
 	public void loadFromSerializedData() throws FileNotFoundException, InvalidClassException, ClassNotFoundException {
 
-		// loadClusterList();
+		loadClusterList();
 		// loadDeviceList();
 
 	}

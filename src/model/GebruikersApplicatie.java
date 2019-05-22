@@ -14,25 +14,24 @@ public class GebruikersApplicatie {
 	private DeviceCommunicator DeviceCommunicator = new DeviceCommunicator(this);
 	private List<Device> deviceList = new ArrayList<Device>();
 	private List<Cluster> clusterList = new ArrayList<Cluster>();
-	private boolean directToArduino = false;
-	transient protected String requestFromId = "123";
-	transient protected String requestForId = "456";
+	
+//	protected String requestFromId = "123";
+//	protected String requestForId = "5678";
 	
 	
 
 	public GebruikersApplicatie() {
 
-		try {
-			// setDeviceList(SerializeHandler.loadDeviceList());
+		try { // cluster(s) vanuit bestand laden 
 			setClusterList(SerializeHandler.loadClusterList());
 		} catch (InvalidClassException | FileNotFoundException | ClassNotFoundException e1) {
-			e1.printStackTrace();
+			System.out.println("Clusters konden niet geladen worden.");
 		}
 
 
 
-		DeviceCommunicator.requestConfigFromServer();
-		// DeviceCommunicator.pushConfigToServer();
+		// DeviceCommunicator.requestConfigFromServer();   nu via controller in plaats vanuit deze klasse 
+		
 	}
  
  
@@ -40,15 +39,7 @@ public class GebruikersApplicatie {
 	public DeviceCommunicator getDcom() {
 		return DeviceCommunicator;
 	}
-
-	public boolean isDirectToArduino() {
-		return directToArduino;
-	}
-
-	public void setDirectToArduino(boolean directToArduino) {
-		this.directToArduino = directToArduino;
-	}
-
+ 
 	public List<Cluster> getClusterList() {
 		return clusterList;
 	}

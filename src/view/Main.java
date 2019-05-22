@@ -16,8 +16,8 @@ public class Main extends Application {
 
 	public final static String FXMLLocation = "/view/";
 	private static Stage stage = new Stage();
-	private int horizontalresolution = 800;
-	private int verticalresolution = 600;
+	private final int horizontalresolution = 800;
+	private final int verticalresolution = 600;
 	private String cssFile = "application.css";
 	private String title = "mijnD0Mein  >> ";
 
@@ -36,6 +36,7 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource(cssFile).toExternalForm());
 			stage = primaryStage;
 			primaryStage.show();
+			primaryStage.setResizable(false);
 
 		} catch (IOException e1) {
 
@@ -44,7 +45,7 @@ public class Main extends Application {
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent e) {
-				gebruikersApplicatie.getDcom().pushConfigToServer();
+				
 				ApplicationCommon.exit();
 
 			}

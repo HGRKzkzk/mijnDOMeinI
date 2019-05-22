@@ -1,4 +1,4 @@
-
+ 
 package proxy;
 
 import java.io.IOException;
@@ -26,89 +26,89 @@ import java.util.Scanner;
  * - ALWAYS send a response back to the requesting client_ID and follow the same protocol
  */
 public class ProxyOnsDomein {
-	private Scanner inServer;
-	private PrintWriter outServer;
+    private Scanner inServer;
+    private PrintWriter outServer;
 
-	/**
-	 * Connect with server and do initial handshake
-	 * @throws IOException, thrown exception needs to be catched using this proxy.
-	 */
-	private void connectWithServer(String client_id) throws IOException {
-		final int ODSP = 8888;
-		final String SERVER_IP = "localhost";
-		// Get the socket from the server
-		Socket s = new Socket(SERVER_IP, ODSP);
-		// Open the streams to make the handshake
-		InputStream inStream = s.getInputStream();
-		OutputStream outStream = s.getOutputStream();
-		inServer = new Scanner(inStream);
-		outServer = new PrintWriter(outStream);
+    /**
+     * Connect with server and do initial handshake
+     * @throws IOException, thrown exception needs to be catched using this proxy.
+     */
+    private void connectWithServer(String client_id) throws IOException {
+        final int ODSP = 8888;
+        final String SERVER_IP = "localhost";
+        // Get the socket from the server
+        Socket s = new Socket(SERVER_IP, ODSP);
+        // Open the streams to make the handshake
+        InputStream inStream = s.getInputStream();
+        OutputStream outStream = s.getOutputStream();
+        inServer = new Scanner(inStream);
+        outServer = new PrintWriter(outStream);
 
-		boolean reactionFromServer = true;
-		while (reactionFromServer) {
-			String reaction = inServer.nextLine();
+        boolean reactionFromServer = true;
+        while (reactionFromServer) {
+            String reaction = inServer.nextLine();
 
-			if (reaction.equals("Who are you?")) {
-				reactionFromServer = false;
-				outServer.println(client_id);
-				outServer.flush();
-			}
-		}
-	}
+            if (reaction.equals("Who are you?")) {
+                reactionFromServer = false;
+                outServer.println(client_id);
+                outServer.flush();
+            }
+        }
+    }
 
-	/**
-	 * Method to connect a client with the server.
-	 * Used for both the GA and the HC
-	 * @param client_id, Unique String that describes the client.
-	 * @throws IOException, this method can produce a IOException, always use in Try/catch block
-	 */
-	public void connectClientToServer(String client_id) throws IOException {
-		connectWithServer(client_id);
-	}
+    /**
+     * Method to connect a client with the server.
+     * Used for both the GA and the HC
+     * @param client_id, Unique String that describes the client.
+     * @throws IOException, this method can produce a IOException, always use in Try/catch block
+     */
+    public void connectClientToServer(String client_id) throws IOException {
+        connectWithServer(client_id);
+    }
 
-	/**
-	 * Method for GA to use.
-	 * Used for sending requests to HC
-	 * @param requestFromId, String with unique id from requester (GA)
-	 * @param requestForId String with unique id from receiver (HC)
-	 * @param message String containing the message for receiver (HC)
-	 * @return String with the response from receiver to requester (HC responds to GA)
-	 */
-	public String sendRequest(String command, String requestFromId, String requestForId, String message) {
-		String request = command + ";" + requestFromId + ";" + requestForId + ";" + message;
-		outServer.println(request);
-		outServer.flush();
-		return receiveRequest();
-	}
+    /**
+     * Method for GA to use.
+     * Used for sending requests to HC
+     * @param requestFromId, String with unique id from requester (GA)
+     * @param requestForId String with unique id from receiver (HC)
+     * @param message String containing the message for receiver (HC)
+     * @return String with the response from receiver to requester (HC responds to GA)
+     */
+    public String sendRequest(String command, String requestFromId, String requestForId, String message) {
+        String request = command + ";" + requestFromId + ";" + requestForId + ";" + message;
+        outServer.println(request);
+        outServer.flush();
+        return receiveRequest();
+    }
 
-	/**
-	 * Method only used by GA because HC needs a permanent connection
-	 * Use to close the connection with the server (and save some kb's on your bundle)
-	 */
-	public void closeConnection() {
-		inServer.close();
-		outServer.close();
-	}
+    /**
+     * Method only used by GA because HC needs a permanent connection
+     * Use to close the connection with the server (and save some kb's on your bundle)
+     */
+    public void closeConnection() {
+        inServer.close();
+        outServer.close();
+    }
 
-	/**
-	 * Method used only by HC for responding to the GA's request.
-	 * Similar to sendRequest method except the lack of a return parameter.
-	 * @param requestFromId, String with unique id from responder (HC)
-	 * @param requestForId, String with unique id from requester (GA)
-	 * @param message, String containing the message for requester (GA)
-	 */
-	public void sendResponse(String command, String requestFromId, String requestForId, String message) {
-		String request = command + ";" + requestFromId + ";" + requestForId + ";" + message;
-		outServer.println(request);
-		outServer.flush();
-	}
+    /**
+     * Method used only by HC for responding to the GA's request.
+     * Similar to sendRequest method except the lack of a return parameter.
+     * @param requestFromId, String with unique id from responder (HC)
+     * @param requestForId, String with unique id from requester (GA)
+     * @param message, String containing the message for requester (GA)
+     */
+    public void sendResponse(String command, String requestFromId, String requestForId, String message) {
+        String request = command + ";" + requestFromId + ";" + requestForId + ";" + message;
+        outServer.println(request);
+        outServer.flush();
+    }
 
-	/**
-	 * Method used by HC to listen for incoming requests and used by proxy to return the response from HC
-	 * @return string, String with: 1) a request for a HC 2) the response from HC
-	 */
-	public String receiveRequest() {
-		return inServer.nextLine();
-	}
+    /**
+     * Method used by HC to listen for incoming requests and used by proxy to return the response from HC
+     * @return string, String with: 1) a request for a HC 2) the response from HC
+     */
+    public String receiveRequest() {
+        return inServer.nextLine();
+    }
 }
  

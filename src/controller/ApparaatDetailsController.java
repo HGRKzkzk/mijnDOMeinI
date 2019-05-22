@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import model.Device;
 import model.DimmableDevice;
 import model.SwitchableDevice;
@@ -41,10 +42,10 @@ public class ApparaatDetailsController implements Initializable {
 	private Button buttonOff;
 	@FXML
 	private Label deviceType;
-	@FXML
-	private Label deviceID;
+//	@FXML
+//	private Label deviceID;
 	
-	
+ 
 
 	public void setStageTitle(String newTitle) {
 		Main.getStage().setTitle(newTitle);
@@ -127,7 +128,16 @@ public class ApparaatDetailsController implements Initializable {
 		deviceActive.setText(String.valueOf(getDevice().isActivated()));
 		buttonOn.setDisable((getDevice()).getSwitchedOn());
 		buttonOff.setDisable(!getDevice().getSwitchedOn());
-		deviceID.setText("fsfsfsfss");
+		// deviceID.setText(String.valueOf(device.getID()));
+		
+		if (!device.isActivated()) {
+			
+			
+			
+			
+			
+			
+		}
 		
 
 	}

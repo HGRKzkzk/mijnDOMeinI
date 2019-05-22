@@ -72,7 +72,7 @@ public class MainScreenController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-	 
+		ApplicationCommon.getFromServer();
 		
 		
 		Main.getStage().setTitle(ScreenNames.Prefix.getDescription());

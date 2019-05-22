@@ -10,11 +10,10 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 
 	private DeviceCommunicator dCom;
 	private String name;
+	private long id;
 	private int port;
 	private boolean switchedOn;
 	private boolean activated;
-
-	int id;
 
 	public Device(String name, int port) {
 
@@ -40,8 +39,11 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 	}
 
 	public void generateAndSetID() {
+
+		long j = System.currentTimeMillis();
+		// String k = Long.toString(j);
 		// TODO ID generator bouwen
-		this.id = 1;
+		this.id = j;
 	}
 
 	public boolean isActivated() {
@@ -63,29 +65,28 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 	}
 
 	public boolean validatePort(int port) {
-		return (port < maxPort && port > minPort);
+		return (port <= maxPort && port >= minPort);
 
 	}
 
-	public void changeName(String name) {
+	public boolean changeName(String name) {
 
-		if (validateName(name)) {
+		if (checkStringLength(name)) {
 			this.name = name;
+			return true;
 
 		} else
 
 		if (name.equals("") || name.isEmpty()) {
 			this.name = standardName;
+			return true;
 		}
 
-		/* Deze return doet niks, wellicht changeName ook een boolean laten retouneren net zoals changePort.
-		Als ie nu hier komt omdat validateName false retourneert dan wordt dit niet goed verwerkt.
-		 */
-		return;
+		return false;
 
 	}
 
-	public boolean validateName(String name) {
+	public boolean checkStringLength(String name) {
 		return (name.length() <= maxNamelength && name.length() > 0);
 	}
 
@@ -110,7 +111,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 		if (getdCom().flipswitch(this)) {
 			this.switchedOn = true;
 		}
-		
+
 	}
 
 	public void switchOff() {
@@ -119,17 +120,13 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 			this.switchedOn = false;
 		}
 
-		
-
 	}
 
 	public void setSwitchedOn(boolean b) {
 
-
 		if (getdCom().flipswitch(this)) {
 			this.switchedOn = b;
 		}
-		
 
 	}
 
@@ -140,6 +137,10 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 
 	public DeviceCommunicator getdCom() {
 		return dCom;
+	}
+
+	public long getID() {
+		return this.id;
 	}
 
 	public void setdCom(DeviceCommunicator dCom) {

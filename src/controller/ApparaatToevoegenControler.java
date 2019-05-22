@@ -56,6 +56,7 @@ public class ApparaatToevoegenControler implements Initializable {
 		}
 
 		deviceList.add(devicefactory.getDevice(selectedType, name, port, false));
+		ApplicationCommon.pushToServer();
 		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparatenView.fxml"));
 		rootPane.getChildren().setAll(pane);
 

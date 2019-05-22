@@ -34,10 +34,13 @@
 		</HBox>
 
 <HBox><Label  text="        " /><Label  text="        " /></HBox>
+<HBox>
 
-
-		<Button text="Terug" onAction="#back" GridPane.columnIndex="6"
-			GridPane.rowIndex="2" />
+		<Button text="Terug" onAction="#back"  />
+		<Label text="        " />
+		<Button text="Status opvragen" onAction="#requestStatus"  />
+			
+		</HBox>
 
 	</VBox>
 

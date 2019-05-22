@@ -56,7 +56,8 @@
     -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
 }
 
-
+ 
+ 
 .switchedOn {
 	-fx-font-weight: bold  ;
 	-fx-text-fill: black;

@@ -5,8 +5,8 @@ public interface Nameable {
 	int maxNamelength = 21;
 	String standardName = "Naamloos";
 	
-	void changeName(String name);
-	boolean validateName(String name);
+	boolean changeName(String name);
+	boolean checkStringLength(String name);
 	
 
 }

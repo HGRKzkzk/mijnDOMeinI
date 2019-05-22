@@ -10,7 +10,9 @@
 	fx:controller="controller.ApparaatDetailsController"
 	xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="5" vgap="5">
 
-	<VBox>
+<VBox>
+
+	
 
 		<HBox>
 			<Label text="Naam:    " />
@@ -23,10 +25,11 @@
 		</HBox>
 		
 		
-		<HBox>
+	<!--   	<HBox>
 			<Label text="ID:          " />
 			<Label fx:id="deviceID" text="" />
 		</HBox>
+	 -->
 		
 		<Label text="" />
 		<HBox>

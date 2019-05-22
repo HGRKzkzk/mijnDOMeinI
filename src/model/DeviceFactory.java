@@ -26,6 +26,9 @@ public class DeviceFactory {
 		int pin = Integer.parseInt(tempArray2[2]);
 		boolean switchedon = tempArray2[3].toString().equals("true");
 		boolean active = tempArray2[4].toString().equals("true");
+		// long id =  Long.parseLong(tempArray2[5]);
+		
+	// 	System.out.println(id);
 
 		if (type.equals("DimmableDevice")) {
 			return new DimmableDevice(naam, pin, switchedon, active);

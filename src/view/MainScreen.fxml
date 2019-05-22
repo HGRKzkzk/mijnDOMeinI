@@ -29,7 +29,7 @@ alignment="center" hgap="5" vgap="5" >
         		GridPane.columnIndex="1" GridPane.rowIndex="2"/> --> 
           
         		
-        		 <Button fx:id="exit" text="Afsluiten" onAction="#exit"
+        		 <Button text="Afsluiten" onAction="#exit"
         		GridPane.columnIndex="1" GridPane.rowIndex="2"/>
  	   </VBox>
 

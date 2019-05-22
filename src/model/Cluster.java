@@ -10,15 +10,15 @@ import interfaces.Switchable;
 @SuppressWarnings("serial")
 public class Cluster implements Serializable, Nameable, Switchable {
 
+	private DeviceCommunicator dCom;
 	private String name;
 	private List<Device> devicesInCluster = new ArrayList<>();
 	private boolean switchedOn;
 	private boolean activated;
 
 	public Cluster(String name) {
-
+		setdCom(new DeviceCommunicator());
 		changeName(name);
-		
 
 	}
 
@@ -32,7 +32,7 @@ public class Cluster implements Serializable, Nameable, Switchable {
 
 	public void switchOn() {
 		System.out.println("Cluster aanzetten");
-	
+
 		for (Device device : devicesInCluster) {
 			if (device.isActivated())
 				device.switchOn();
@@ -45,7 +45,6 @@ public class Cluster implements Serializable, Nameable, Switchable {
 
 	public void switchOff() {
 		System.out.println("Cluster uitzetten");
-		
 
 		for (Device device : devicesInCluster) {
 			if (device.isActivated())
@@ -85,42 +84,42 @@ public class Cluster implements Serializable, Nameable, Switchable {
 		this.switchedOn = switchedOn;
 	}
 
-	public void changeName(String name) {
+	public boolean changeName(String name) {
 
-		if (validateName(name)) {
+		if (checkStringLength(name)) {
 			this.name = name;
-
+			return true;
 		} else
 
 		if (name.equals("") || name.isEmpty()) {
 			this.name = standardName;
+			return true;
 		}
 
-		// Zelfde opmerking van toepassing als bij Device
-		return;
+		return false;
 
 	}
 
-	public boolean validateName(String name) {
+	public boolean checkStringLength(String name) {
 
 		return (name.length() <= maxNamelength && name.length() > 0 && !name.isEmpty());
 	}
-	
 
 	@Override
 	public void requestCurrentValue() {
 
+		System.out.println("Status van cluster opvragen");
+		// TODO Deze methode heeft nog niet het juiste gedrag / placeholder.
+
 		int switchedonCount = 0;
 
 		for (Device device : devicesInCluster) {
-			if (((SwitchableDevice) device).getSwitchedOn())
+			if (device.getSwitchedOn())
 				switchedonCount++;
 		}
 
 		if (switchedonCount > (devicesInCluster.size() / 2))
 			return; // true als tenminste de helft van de apparaten in de cluster aan staat
-
-
 
 	}
 
@@ -128,6 +127,10 @@ public class Cluster implements Serializable, Nameable, Switchable {
 	public boolean getSwitchedOn() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public void setdCom(DeviceCommunicator dCom) {
+		this.dCom = dCom;
 	}
 
 }

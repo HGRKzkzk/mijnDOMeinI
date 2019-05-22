@@ -1,6 +1,6 @@
 package interfaces;
 
-public interface ArduinoConventions {
+public interface ArduinoProtocol {
 	
 	String ARD_DIVIDER = ",";
 	String ARD_BOM = "<";
