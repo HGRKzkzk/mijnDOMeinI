@@ -187,7 +187,7 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 
 		try {
 
-			if (proxy == null) { //TODO
+			if (proxy == null) { //TODO deze ondervangen door proxy na serializen voor CLuster te fixen.
 				proxy = new ProxyOnsDomein();
 
 			}
