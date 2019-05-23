@@ -28,9 +28,7 @@ public class DeviceFactory {
 		boolean active = tempArray2[4].toString().equals("true");
 		// long id =  Long.parseLong(tempArray2[5]);
 		
-	// 	System.out.println(id);
-
-		if (type.equals("DimmableDevice")) {
+			if (type.equals("DimmableDevice")) {
 			return new DimmableDevice(naam, pin, switchedon, active);
 		}
 
