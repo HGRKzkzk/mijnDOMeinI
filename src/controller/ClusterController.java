@@ -21,6 +21,12 @@ public class ClusterController implements Initializable {
 	private ArrayList<Cluster> clusterList = (ArrayList<Cluster>) ControllerData.clusterList;
 	static String whichCluster = null;
 
+	private int yOffset = -200;
+	private int ySpacer = 20;
+	private int ySpaceIncrease = 33;
+
+
+
 	@FXML
 	private GridPane rootPane;
 
@@ -53,12 +59,12 @@ public class ClusterController implements Initializable {
 	protected void showDeviceList() {
 
 
-		int i = 20;
+
 		for (Cluster cluster : clusterList) {
 
 			
 			Button clusterButton = new Button(cluster.getName());
-			clusterButton.setTranslateY(-200 + i);
+			clusterButton.setTranslateY(yOffset + ySpacer);
 
 			if (cluster.isSwitchedOn()) {
 
@@ -88,7 +94,7 @@ public class ClusterController implements Initializable {
 			rootPane.getChildren().addAll(clusterButton);
 
 			// System.out.println(device.getName());
-			i += 33;
+			ySpacer += ySpaceIncrease;
 
 		}
 

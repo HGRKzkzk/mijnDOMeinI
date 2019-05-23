@@ -13,7 +13,7 @@ import view.Main;
 
 public class ApplicationCommon {
 
-	static SerializeHandler SerializeHandler = new SerializeHandler();
+ 	static SerializeHandler SerializeHandler = new SerializeHandler();
 	static GebruikersApplicatie ga = Main.getGa();
 
 	public static boolean exit() {

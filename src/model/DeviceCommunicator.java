@@ -59,7 +59,7 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 		
 	}
 
-	public String handleConfigResponse(String response) {
+	private String handleConfigResponse(String response) {
 
 		System.out.println("Response: " + response);
 		response = response.replace(STR_START, "");
@@ -74,7 +74,7 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 
 	}
 
-	public void getDevicesFromString(String[] tempArray) {
+	private void getDevicesFromString(String[] tempArray) {
 
 		for (String s : tempArray) {
 			String[] tempArray2 = s.split(SPACER);
@@ -110,7 +110,7 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 		return response.equals("setConfigOK"); // true bij gewenste / verwachte response, anders false. 
 	}
 
-	public String generateConfigProtocolFromList(ArrayList<Device> devices) {
+	private String generateConfigProtocolFromList(ArrayList<Device> devices) {
 		String result = "";
 		for (Device d : devices) {
 			long id = d.getID();
