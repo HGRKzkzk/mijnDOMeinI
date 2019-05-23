@@ -161,9 +161,6 @@ public class ApparaatDetailsController implements Initializable {
 
 	}
 
-	public void backToApparatenView() {
-
-	}
 	
 	public void requestStatus() throws IOException {
 		

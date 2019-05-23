@@ -20,6 +20,10 @@ public class ApparatenControler implements Initializable {
 
 	private ArrayList<Device> deviceList = (ArrayList<Device>) ControllerData.deviceList;
 
+	private int yOffset = -200;
+	private int ySpacer = 20;
+	private int ySpaceIncrease = 33;
+
 	static String whichDevice = null;
 
 	@FXML
@@ -51,21 +55,14 @@ public class ApparatenControler implements Initializable {
 
 	}
 
-	@FXML
-	protected void showApparaatVerwijderen(ActionEvent event) throws IOException {
-
-		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparatenVerwijderen.fxml"));
-		rootPane.getChildren().setAll(pane);
-
-	}
 
 	protected void showDeviceList() {
 
-		int i = 20;
+
 		for (Device device : deviceList) {
 
 			Button deviceButton = new Button(device.getName());
-			deviceButton.setTranslateY(-200 + i);
+			deviceButton.setTranslateY(yOffset + ySpacer);
 
 			if (device.getSwitchedOn()) {
 
@@ -95,7 +92,7 @@ public class ApparatenControler implements Initializable {
 			rootPane.getChildren().addAll(deviceButton);
 
 			// System.out.println(device.getName());
-			i += 33;
+			ySpacer += ySpaceIncrease;
 
 		}
 

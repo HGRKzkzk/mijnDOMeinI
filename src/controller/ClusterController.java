@@ -18,10 +18,7 @@ import view.Main;
 
 public class ClusterController implements Initializable {
 
-	// private ArrayList<Device> deviceList = (ArrayList<Device>) ControllerData.deviceList;
 	private ArrayList<Cluster> clusterList = (ArrayList<Cluster>) ControllerData.clusterList;
-
-
 	static String whichCluster = null;
 
 	@FXML

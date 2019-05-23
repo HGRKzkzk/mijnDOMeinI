@@ -22,7 +22,6 @@ public class ClusterDetailsController implements Initializable {
 	
 	@FXML private Button buttonOn;
 	@FXML private Button buttonOff;
-	
 	@FXML private Label clusterName;
 	@FXML private Label clusterContents;
 	@FXML private Label clusterState;
@@ -32,7 +31,7 @@ public class ClusterDetailsController implements Initializable {
 
 	static String whichCluster = null;
 	
-	 private ArrayList<Cluster> clusterList = (ArrayList<Cluster>) ControllerData.clusterList;
+	private ArrayList<Cluster> clusterList = (ArrayList<Cluster>) ControllerData.clusterList;
 
 	protected static Cluster cluster;
 
@@ -65,7 +64,7 @@ public class ClusterDetailsController implements Initializable {
 				
 		for (Cluster cluster : clusterList) {
 			
-			if (cluster.getName() == ClusterController.whichCluster) {
+			if (cluster.getName().equals(ClusterController.whichCluster)) {
 				
 				this.cluster = cluster;				
 				
@@ -118,9 +117,6 @@ public class ClusterDetailsController implements Initializable {
 	}
 	
 	
-	public void backToApparatenView() {
-		
-		
-	}
+
 
 }

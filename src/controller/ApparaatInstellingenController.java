@@ -136,7 +136,7 @@ public class ApparaatInstellingenController implements Initializable {
 
 		deviceName.setText(device.getName());
 		devicePort.setText(String.valueOf(device.getPort()));
-		// TODO Auto-generated method stub
+
 
 	}
 
