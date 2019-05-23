@@ -14,7 +14,7 @@ public class ControllerData {
 	
 	
 	public static void init() {
-		
+
 		deviceList = Main.getGa().getDeviceList();
 		clusterList = Main.getGa().getClusterList();
 		

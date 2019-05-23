@@ -52,8 +52,8 @@ public class GebruikersApplicatie {
 		return deviceList;
 	}
 
-	public void setDeviceList(List<Device> deviceList) {
-		this.deviceList = deviceList;
-	}
+ 	public void setDeviceList(List<Device> deviceList) {
+ 		this.deviceList = deviceList;
+ 	}
 
 }

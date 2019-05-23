@@ -23,10 +23,10 @@ public class SerializeHandler {
 
 	public void saveAsSerializedData() {
 		
-		deviceList = (ArrayList<Device>) Main.getGa().getDeviceList();
+		
 	 	clusterList = (ArrayList<Cluster>) Main.getGa().getClusterList();
 
-		// saveDeviceList();
+
 		saveClusterList();
 
 	}
