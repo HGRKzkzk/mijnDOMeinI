@@ -15,10 +15,10 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 	transient private DeviceFactory dfac = new DeviceFactory();
 	transient private ProxyOnsDomein proxy;
 	transient private GebruikersApplicatie ga;
-	transient private String configMsg;
-	
-	transient private String requestFromId = "123";
-	transient private String requestForId = "5678";
+
+	private String configMsg;
+	private String requestFromId = "123";
+	private String requestForId = "5678";
 
 	public DeviceCommunicator() {
 		proxy = new ProxyOnsDomein();
@@ -28,6 +28,8 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 		this.ga = gebruikersApplicatie;
 		proxy = new ProxyOnsDomein();
 	}
+
+
 
 	public void requestConfigFromServer() {
 
@@ -174,7 +176,7 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 
 	}
 
-	public boolean sendmessage(String action, int[] message) {
+	private boolean sendmessage(String action, int[] message) {
 		int whichPin = message[0];
 		int whichAction = message[1];
 		int whichValue = message[2];
@@ -183,11 +185,11 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 
 		System.out.println(msg);
 
-		try { // dit mag / moet mooier ondervangen worden maar anders krijg ik voor nu nog een null vanuit de cluster funcionaliteit. 
+		try {
 
-			if (proxy == null) {
+			if (proxy == null) { //TODO
 				proxy = new ProxyOnsDomein();
-				requestForId = "5678";
+
 			}
 
 			proxy.connectClientToServer(requestFromId);
