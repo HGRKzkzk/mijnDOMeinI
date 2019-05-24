@@ -22,13 +22,8 @@ public class GebruikersApplicatie {
 
 	public GebruikersApplicatie() {
 
-		try { // cluster(s) vanuit bestand laden 
-			setClusterList(SerializeHandler.loadClusterList());
-		} catch (InvalidClassException | FileNotFoundException | ClassNotFoundException e1) {
-			System.out.println("Clusters konden niet geladen worden.");
-		}
 
-
+			setClusterList(SerializeHandler.clusters());
 
 		// DeviceCommunicator.requestConfigFromServer();   nu via controller in plaats vanuit deze klasse 
 		
@@ -44,7 +39,7 @@ public class GebruikersApplicatie {
 		return clusterList;
 	}
 
-	public void setClusterList(List<Cluster> clusterList) {
+	private void setClusterList(List<Cluster> clusterList) {
 		this.clusterList = clusterList;
 	}
 
