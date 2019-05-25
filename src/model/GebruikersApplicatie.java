@@ -27,9 +27,11 @@ public class GebruikersApplicatie {
 		try {
 			setClusterList(SerializeHandler.clusters());
 		} catch (IOException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+
 		}
 
 		// DeviceCommunicator.requestConfigFromServer();   nu via controller in plaats vanuit deze klasse 

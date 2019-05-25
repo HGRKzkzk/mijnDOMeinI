@@ -1,11 +1,6 @@
 package persistance;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,16 +55,18 @@ public class SerializeHandler {
 
 	}
 
-	private List<Cluster> loadClusterList() throws IOException, ClassNotFoundException {
+	private List<Cluster> loadClusterList() throws IOException, ClassNotFoundException, FileNotFoundException {
 		ArrayList<Cluster> clusterlist = new ArrayList<Cluster>();
 		File file = new File(name);
 		FileInputStream fileInputStream = null;
 		ObjectInputStream objectInputStream = null;
 		fileInputStream = new FileInputStream(file); //TODO file not found netjes afvangen
 
+
 		objectInputStream = new ObjectInputStream(fileInputStream);
 		clusterlist = (ArrayList<Cluster>) objectInputStream.readObject();
 		objectInputStream.close();
+
 		for (Cluster cl : clusterList){
 			cl.getdCom().setProxy();
 		}

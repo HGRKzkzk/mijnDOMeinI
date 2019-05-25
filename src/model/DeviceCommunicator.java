@@ -21,16 +21,16 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 	private String requestForId = "5678";
 
 	public DeviceCommunicator() {
-		proxy = new ProxyOnsDomein();
+		this.proxy = new ProxyOnsDomein();
 	}
 
 	public DeviceCommunicator(GebruikersApplicatie gebruikersApplicatie) {
 		this.ga = gebruikersApplicatie;
-		proxy = new ProxyOnsDomein();
+		this.proxy = new ProxyOnsDomein();
 	}
 
 	public void setProxy() {
-		proxy = new ProxyOnsDomein();
+		this.proxy = new ProxyOnsDomein();
 	}
 
 
@@ -164,6 +164,10 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 	private void connectToServer(String requestFromId) {
 
 		try {
+
+			if(proxy == null){
+				this.proxy = new ProxyOnsDomein();
+			}
 			proxy.connectClientToServer(requestFromId);
 		} catch (IOException e) {
 			System.out.println("Geen verbinding met server.");
