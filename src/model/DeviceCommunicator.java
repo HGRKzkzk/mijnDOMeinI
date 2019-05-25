@@ -98,13 +98,7 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 		return response.equals("setConfigOK"); // true bij gewenste / verwachte response, anders false.
 	}
 
-	private String toServer(String cmd, String msg) {
-		connectToServer(requestFromId);
-		String resp = proxy.sendRequest(cmd, requestFromId, requestForId, configMsg); // naar server sturen
-		proxy.closeConnection();
-		return resp;
 
-	}
 
 	private String generateConfigProtocolFromList(ArrayList<Device> devices) {
 		StringBuilder result = new StringBuilder();
@@ -184,6 +178,14 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 		}
 
 		return true;
+	}
+
+	private String toServer(String cmd, String msg) {
+		connectToServer(requestFromId);
+		String resp = proxy.sendRequest(cmd, requestFromId, requestForId, configMsg); // naar server sturen
+		proxy.closeConnection();
+		return resp;
+
 	}
 
 }
