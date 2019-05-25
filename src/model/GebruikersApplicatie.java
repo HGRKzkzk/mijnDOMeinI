@@ -1,6 +1,7 @@
 package model;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InvalidClassException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,13 @@ public class GebruikersApplicatie {
 	public GebruikersApplicatie() {
 
 
+		try {
 			setClusterList(SerializeHandler.clusters());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 
 		// DeviceCommunicator.requestConfigFromServer();   nu via controller in plaats vanuit deze klasse 
 		

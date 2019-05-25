@@ -129,8 +129,11 @@ public class Cluster implements Serializable, Nameable, Switchable {
 		return false;
 	}
 
-	public void setdCom(DeviceCommunicator dCom) {
+	private void setdCom(DeviceCommunicator dCom) {
 		this.dCom = dCom;
 	}
 
+	public DeviceCommunicator getdCom() {
+		return dCom;
+	}
 }

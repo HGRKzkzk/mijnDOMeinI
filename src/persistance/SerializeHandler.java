@@ -53,17 +53,11 @@ public class SerializeHandler {
 
 	}
 
-	public List<Cluster> clusters(){
-		List<Cluster> dlow = null;
-		try {
-		  dlow  = loadClusterList();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+	public List<Cluster> clusters() throws IOException, ClassNotFoundException {
 
-		return dlow;
+		return loadClusterList();
+
+
 	}
 
 	private List<Cluster> loadClusterList() throws IOException, ClassNotFoundException {
@@ -71,12 +65,14 @@ public class SerializeHandler {
 		File file = new File(name);
 		FileInputStream fileInputStream = null;
 		ObjectInputStream objectInputStream = null;
-		fileInputStream = new FileInputStream(file);
+		fileInputStream = new FileInputStream(file); //TODO file not found netjes afvangen
 
 		objectInputStream = new ObjectInputStream(fileInputStream);
 		clusterlist = (ArrayList<Cluster>) objectInputStream.readObject();
 		objectInputStream.close();
-
+		for (Cluster cl : clusterList){
+			cl.getdCom().setProxy();
+		}
 		return clusterlist;
 	}
 
