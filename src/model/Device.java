@@ -23,7 +23,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 		switchedOn = true;
 		activated = true;
 
-		generateAndSetID();
+		// generateAndSetID();
 
 	}
 
