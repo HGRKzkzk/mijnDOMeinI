@@ -33,15 +33,7 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 		proxy = new ProxyOnsDomein();
 	}
 
-	private void connectToServer(String requestFromId) {
 
-		try {
-			proxy.connectClientToServer(requestFromId);
-		} catch (IOException e) {
-			System.out.println("Geen verbinding met server.");
-		}
-
-	}
 
 	public void requestConfigFromServer() {
 
@@ -118,51 +110,32 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 
 	}
 
-	public void pushStateToServer() {
-
-	}
-
-	public boolean flipswitch(Device device) {
-
-//		System.out.println("Schakelaar omzetten.");
-
-		int whichValue = device.getSwitchedOn() ? 0 : 1; // van boolean naar int tbv protocol
+	public boolean DeviceAction(Device device, String action){
+		String cmd = "setHc";
 		int whichPin = device.getPort();
-		int whichAction = ArduinoRequests.switchPin.num;
+		int whichAction = 0;
+		int whichValue = 0;
+
+		if(action.equals("switch")){
+			whichAction = ArduinoRequests.switchPin.num;
+			whichValue = device.getSwitchedOn() ? 0 : 1; // van boolean naar int tbv protocol
+		}
+
+		if (action.equals("alter")){
+			whichAction = ArduinoRequests.setValue.num;
+			whichValue = ((Dimmable) device).getDimValue();
+		}
+
+		if(action.equals("read")){
+			cmd = "getHc";
+			whichAction = ArduinoRequests.getStatus.num;
+		}
 
 		int[] message = new int[] { whichPin, whichAction, whichValue };
-
-		return sendmessage("setHc", message);
-
-	}
-
-	public boolean altervalue(Device device) {
-
-//		System.out.println("Waarde aanpassen.");
-
-		int whichValue = ((Dimmable) device).getDimValue();
-		int whichPin = device.getPort();
-		int whichAction = ArduinoRequests.setValue.num;
-
-		int[] message = new int[] { whichPin, whichAction, whichValue };
-
-		return sendmessage("setHc", message);
+		return sendmessage(cmd, message);
 
 	}
 
-	public boolean requeststatus(Device device) {
-
-//		System.out.println("Status opvragen.");
-
-		int whichPin = device.getPort();
-		int whichValue = device.getSwitchedOn() ? 1 : 0; // van boolean naar int tbv protocol
-		int whichAction = ArduinoRequests.getStatus.num;
-
-		int[] message = new int[] { whichPin, whichAction, whichValue };
-
-		return sendmessage("getHc", message);
-
-	}
 
 	private boolean sendmessage(String action, int[] message) {
 		int whichPin = message[PIN];
@@ -182,9 +155,19 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 
 	private String toServer(String cmd, String msg) {
 		connectToServer(requestFromId);
-		String resp = proxy.sendRequest(cmd, requestFromId, requestForId, configMsg); // naar server sturen
+		String resp = proxy.sendRequest(cmd, requestFromId, requestForId, msg); // naar server sturen
 		proxy.closeConnection();
 		return resp;
+
+	}
+
+	private void connectToServer(String requestFromId) {
+
+		try {
+			proxy.connectClientToServer(requestFromId);
+		} catch (IOException e) {
+			System.out.println("Geen verbinding met server.");
+		}
 
 	}
 

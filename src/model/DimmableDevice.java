@@ -21,8 +21,10 @@ public class DimmableDevice extends DigitalDevice implements Dimmable, Serializa
 
 	
 	public void setDimValue(int newValue) {
-		
-		if(super.getdCom().altervalue(this)) {
+
+
+		if(super.getdCom().DeviceAction(this, "alter"))
+		{
 			this.dimValue = newValue;
 		}
 
