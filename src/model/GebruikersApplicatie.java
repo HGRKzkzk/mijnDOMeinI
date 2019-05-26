@@ -16,7 +16,7 @@ public class GebruikersApplicatie {
 	private List<Device> deviceList = new ArrayList<Device>();
 	private List<Cluster> clusterList = new ArrayList<Cluster>();
 	
-//	protected String requestFromId = "123";
+//	protected String requestFromId = "1234";
 //	protected String requestForId = "5678";
 	
 	
