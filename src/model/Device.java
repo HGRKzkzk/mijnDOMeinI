@@ -131,10 +131,6 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 		return dCom;
 	}
 
-	public long getID() {
-		return this.id;
-	}
-
 	private void setdCom(DeviceCommunicator dCom) {
 		this.dCom = dCom;
 	}
