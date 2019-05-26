@@ -17,7 +17,7 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 	transient private GebruikersApplicatie ga;
 
 	private String configMsg;
-	private String requestFromId = "123";
+	private String requestFromId = "120";
 	private String requestForId = "5678";
 
 	public DeviceCommunicator() {
@@ -118,7 +118,7 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 
 		if(action.equals("switch")){
 			whichAction = ArduinoRequests.switchPin.num;
-			whichValue = device.getSwitchedOn() ? 0 : 1; // van boolean naar int tbv protocol
+			whichValue = device.getSwitchedOn() ? 1 : 0; // van boolean naar int tbv protocol
 		}
 
 		if (action.equals("alter")){
