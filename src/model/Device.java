@@ -23,7 +23,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 		switchedOn = true;
 		activated = true;
 
-		generateAndSetID();
+
 
 	}
 
@@ -34,17 +34,9 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 		changeName(name);
 		this.switchedOn = on;
 		this.activated = true; // hier gebeuren ander onverklaarbare dingen..?
-		generateAndSetID();
 
 	}
 
-	public void generateAndSetID() {
-
-		long j = System.currentTimeMillis();
-		// String k = Long.toString(j);
-		// TODO ID generator bouwen
-		this.id = j;
-	}
 
 	public boolean isActivated() {
 		return activated;
