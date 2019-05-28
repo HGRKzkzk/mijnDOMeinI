@@ -42,7 +42,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 		return activated;
 	}
 
-	public void setValue(int value){
+	  void setValue(int value){
 		this.value = value;
 		System.out.println(this.value);
 	}
@@ -107,7 +107,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 		getdCom().DeviceAction(this, "read");
 	}
 
-	public void switchOn() {
+	 void switchOn() {
 
 		if (getdCom().DeviceAction(this, "switch")) {
 			this.switchedOn = true;
@@ -115,7 +115,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 
 	}
 
-	public void switchOff() {
+	void switchOff() {
 
 		if (getdCom().DeviceAction(this, "switch")) {
 			this.switchedOn = false;
@@ -136,7 +136,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 		return this.switchedOn;
 	}
 
-	public DeviceCommunicator getdCom() {
+	DeviceCommunicator getdCom() {
 		return dCom;
 	}
 
