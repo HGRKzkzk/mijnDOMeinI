@@ -10,8 +10,8 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 
 	private DeviceCommunicator dCom;
 	private String name;
-	private long id;
 	private int port;
+	private int value;
 	private boolean switchedOn;
 	private boolean activated;
 
@@ -40,6 +40,11 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 
 	public boolean isActivated() {
 		return activated;
+	}
+
+	public void setValue(int value){
+		this.value = value;
+		System.out.println(this.value);
 	}
 
 	public void setActivated(boolean activated) {
