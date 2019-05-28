@@ -99,6 +99,10 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 
 	}
 
+	public int getValue(){
+		return this.value;
+	}
+
 	public void requestCurrentValue() {
 		getdCom().DeviceAction(this, "read");
 	}

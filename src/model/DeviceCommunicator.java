@@ -151,20 +151,20 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 			return false;
 		}
 
-		if (updateflag){ // TODO dit hele stuk ;) 
-			System.out.println("Waarde updaten!");
+		if (updateflag){
+			// System.out.println("Waarde updaten!");
 			String ardValues = response.substring(response.indexOf(ARD_BOM) + 1, response.indexOf(ARD_EOM));
-			System.out.println(ardValues);
 			String[] values = ardValues.split(",");
-			System.out.println("Pin: " + values[0]);
-			System.out.println("Waarde: " + values[1]);
-
-			if (values[0].equals(Integer.toString(d.getPort())));
-			{
-				// helemaal fout
-				d.setValue(Integer.valueOf(values[1]));
+			String rcPin = values[0];
+			int rcValue = Integer.parseInt(values[1]);
+			if (!rcPin.equals(Integer.toString(d.getPort())))	{
+				//als de poort die je terugkrijgt niet de verwachte poort is gaat er iets helemaal mis, eventueel nog exception voor maken / gooien
+				return false;
 
 			}
+
+			d.setValue(rcValue);
+
 
 
 

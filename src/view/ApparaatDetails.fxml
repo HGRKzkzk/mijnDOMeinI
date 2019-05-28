@@ -38,7 +38,7 @@
 		</HBox>
 		
 		<HBox>
-			<Label text="Aan?       " />
+			<Label fx:id="labelOnOff" text="Aan?       " />
 			<Label fx:id="deviceState" text="" />
 		</HBox>
 		<HBox>
