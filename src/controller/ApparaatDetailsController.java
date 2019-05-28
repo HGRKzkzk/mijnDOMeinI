@@ -19,6 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import model.Device;
 import model.DimmableDevice;
+import model.ReadableDevice;
 import model.SwitchableDevice;
 import view.Main;
 
@@ -42,6 +43,8 @@ public class ApparaatDetailsController implements Initializable {
 	private Button buttonOff;
 	@FXML
 	private Label deviceType;
+	@FXML
+	private Label labelOnOff;
 //	@FXML
 //	private Label deviceID;
 	
@@ -74,6 +77,9 @@ public class ApparaatDetailsController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+
+
+
 		Main.getStage()
 				.setTitle(ScreenNames.Prefix.getDescription() + "  " + ScreenNames.ApparaatDetails.getDescription());
 
@@ -87,6 +93,7 @@ public class ApparaatDetailsController implements Initializable {
 
 			if (device.getName() == ApparatenControler.whichDevice) {
 				this.setDevice(device);
+				device.requestCurrentValue();
 				this.devicePort.setText(String.valueOf(device.getPort()));
 
 				if (device.isActivated()) {
@@ -128,16 +135,17 @@ public class ApparaatDetailsController implements Initializable {
 		deviceActive.setText(String.valueOf(getDevice().isActivated()));
 		buttonOn.setDisable((getDevice()).getSwitchedOn());
 		buttonOff.setDisable(!getDevice().getSwitchedOn());
-		// deviceID.setText(String.valueOf(device.getID()));
-		
-		if (!device.isActivated()) {
-			
-			
-			
-			
-			
-			
+
+		if (device instanceof ReadableDevice){
+
+			// deviceState.setText(Integer.toString(device.getValue()));
+			deviceState.setText(Integer.toString(device.getValue()));
+			labelOnOff.setText("Waarde:  ");
+
 		}
+
+		
+
 		
 
 	}
