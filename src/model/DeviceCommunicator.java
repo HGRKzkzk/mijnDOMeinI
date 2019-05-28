@@ -20,11 +20,11 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 	private String requestFromId = "120";
 	private String requestForId = "5678";
 
-	public DeviceCommunicator() {
+	DeviceCommunicator() {
 		this.proxy = new ProxyOnsDomein();
 	}
 
-	public DeviceCommunicator(GebruikersApplicatie gebruikersApplicatie) {
+	DeviceCommunicator(GebruikersApplicatie gebruikersApplicatie) {
 		this.ga = gebruikersApplicatie;
 		this.proxy = new ProxyOnsDomein();
 	}
@@ -61,10 +61,6 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 	private String handleConfigResponse(String response) {
 		response = response.replace(STR_START, "");
 		response = response.replace(STR_STOP, "");
-
-		if (response.equals(null)) { // TODO betere check maken
-			response = "message";
-		}
 
 		return response;
 
@@ -109,7 +105,7 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 
 	}
 
-	public boolean DeviceAction(Device device, String action){
+	boolean DeviceAction(Device device, String action){
 		String cmd = "setHc";
 		int whichPin = device.getPort();
 		int whichAction = 0;
