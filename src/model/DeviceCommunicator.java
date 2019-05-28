@@ -95,7 +95,6 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 	private String generateConfigProtocolFromList(ArrayList<Device> devices) {
 		StringBuilder result = new StringBuilder();
 		for (Device d : devices) {
-			// long id = d.getID();
 			String type = d.getClass().getSimpleName();
 			String name = d.getName();
 			int port = d.getPort();
@@ -115,6 +114,7 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 		int whichPin = device.getPort();
 		int whichAction = 0;
 		int whichValue = 0;
+		boolean updateflag = false; // bepaalt of de waarde wel of niet binnen het device wordt aangepast
 
 		if(action.equals("switch")){
 			whichAction = ArduinoRequests.switchPin.num;
@@ -127,17 +127,18 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 		}
 
 		if(action.equals("read")){
+			updateflag = true;
 			cmd = "getHc";
 			whichAction = ArduinoRequests.getStatus.num;
 		}
 
 		int[] message = new int[] { whichPin, whichAction, whichValue };
-		return sendmessage(cmd, message);
+		return sendmessage(cmd, message, updateflag, device);
 
 	}
 
 
-	private boolean sendmessage(String action, int[] message) {
+	private boolean sendmessage(String action, int[] message, boolean updateflag, Device d) {
 		int whichPin = message[PIN];
 		int whichAction = message[ACTION];
 		int whichValue = message[VALUE];
@@ -150,12 +151,36 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 			return false;
 		}
 
+		if (updateflag){ // TODO dit hele stuk ;) 
+			System.out.println("Waarde updaten!");
+			String ardValues = response.substring(response.indexOf(ARD_BOM) + 1, response.indexOf(ARD_EOM));
+			System.out.println(ardValues);
+			String[] values = ardValues.split(",");
+			System.out.println("Pin: " + values[0]);
+			System.out.println("Waarde: " + values[1]);
+
+			if (values[0].equals(Integer.toString(d.getPort())));
+			{
+				// helemaal fout
+				d.setValue(Integer.valueOf(values[1]));
+
+			}
+
+
+
+
+
+
+		}
+
 		return true;
 	}
 
 	private String toServer(String cmd, String msg) {
 		connectToServer(requestFromId);
+		System.out.println("To server: 	" + cmd + ";" + requestFromId + ";" + requestForId + ";" + msg);
 		String resp = proxy.sendRequest(cmd, requestFromId, requestForId, msg); // naar server sturen
+		System.out.println("Response: 	" + resp);
 		proxy.closeConnection();
 		return resp;
 
