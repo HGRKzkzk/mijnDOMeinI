@@ -93,7 +93,7 @@ public class ApparaatDetailsController implements Initializable {
 
 			if (device.getName() == ApparatenControler.whichDevice) {
 				this.setDevice(device);
-				device.requestCurrentValue();
+
 				this.devicePort.setText(String.valueOf(device.getPort()));
 
 				if (device.isActivated()) {
@@ -185,6 +185,7 @@ public class ApparaatDetailsController implements Initializable {
 
 	public void setDevice(Device device) {
 		ApparaatDetailsController.device = device;
+		device.requestCurrentValue();
 	}
 
 }

@@ -12,7 +12,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 	private String name;
 	private int port;
 	private int value;
-	private boolean switchedOn;
+	protected boolean switchedOn;
 	private boolean activated;
 
 	public Device(String name, int port) {
@@ -44,7 +44,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 
 	  void setValue(int value){
 		this.value = value;
-		System.out.println(this.value);
+
 	}
 
 	public void setActivated(boolean activated) {
