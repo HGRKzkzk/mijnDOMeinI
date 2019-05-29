@@ -159,8 +159,18 @@ public class DeviceCommunicator implements Serializable, ArduinoProtocol, Config
 
 			}
 
+			//niet de mooiste manier maar voor nu een manier die werkt
+			boolean e = false;
 			d.setValue(rcValue);
+			if(rcValue == 0){
+				e = true;
+			}
+			if(rcValue == 1){
+				e = false;
+			}
 
+
+			d.switchedOn = e;
 
 
 
