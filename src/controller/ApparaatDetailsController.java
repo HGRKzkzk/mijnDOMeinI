@@ -61,7 +61,7 @@ public class ApparaatDetailsController implements Initializable {
 	@FXML
 	protected void back(ActionEvent event) throws IOException {
 
-		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparatenView.fxml"));
+		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "MainScreen.fxml"));
 		rootPane.getChildren().setAll(pane);
 
 	}

@@ -12,7 +12,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 	private String name;
 	private int port;
 	private int value;
-	protected boolean switchedOn;
+	boolean switchedOn;
 	private boolean activated;
 
 	public Device(String name, int port) {
