@@ -35,7 +35,7 @@ public class ProxyOnsDomein {
      */
     private void connectWithServer(String client_id) throws IOException {
         final int ODSP = 8888;
-        final String SERVER_IP = "localhost";
+        final String SERVER_IP = "172.20.10.11";
         // Get the socket from the server
         Socket s = new Socket(SERVER_IP, ODSP);
         // Open the streams to make the handshake

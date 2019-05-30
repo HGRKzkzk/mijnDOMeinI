@@ -33,7 +33,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 		changePort(port);
 		changeName(name);
 		this.switchedOn = on;
-		this.activated = true; // hier gebeuren ander onverklaarbare dingen..?
+		this.activated = active;  
 
 	}
 
