@@ -12,17 +12,24 @@
 
 <VBox>
 
+
+	<HBox>
+		<Label text="Type:      " />
+		<Label fx:id="deviceType" text="" />
+	</HBox>
 	
 
 		<HBox>
 			<Label text="Naam:    " />
 			<Label fx:id="deviceName" text="" />
 		</HBox>
-		
-		<HBox>
-			<Label text="Type:      " />
-			<Label fx:id="deviceType" text="" />
-		</HBox>
+
+
+	<HBox>
+		<Label text="Poort:     " />
+		<Label fx:id="devicePort" text="" />
+	</HBox>
+
 		
 		
 	<!--   	<HBox>
@@ -32,10 +39,7 @@
 	 -->
 		
 		<Label text="" />
-		<HBox>
-			<Label text="Poort:     " />
-			<Label fx:id="devicePort" text="" />
-		</HBox>
+
 		
 		<HBox>
 			<Label fx:id="labelOnOff" text="Aan?       " />

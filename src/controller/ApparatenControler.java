@@ -65,7 +65,7 @@ public class ApparatenControler implements Initializable {
 
 			Button deviceButton = new Button(device.getName());
 			deviceButton.setTranslateY(yOffset + ySpacer);
-
+//
 //			if (device.getSwitchedOn()) {
 //
 //				deviceButton.getStyleClass().add("switchedOn");

@@ -61,7 +61,7 @@ public class ApparaatDetailsController implements Initializable {
 	@FXML
 	protected void back(ActionEvent event) throws IOException {
 
-		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "MainScreen.fxml"));
+		GridPane pane = FXMLLoader.load(getClass().getResource(Main.FXMLLocation + "ApparatenView.fxml"));
 		rootPane.getChildren().setAll(pane);
 
 	}
@@ -102,7 +102,8 @@ public class ApparaatDetailsController implements Initializable {
 						dm = (DimmableDevice) device;
 						slider.setVisible(true);
 						slider.setValue(((Dimmable) device).getDimValue());
-						// slider.setShowTickLabels(true);
+						slider.setShowTickLabels(true);
+						slider.setShowTickMarks(true);
 
 						slider.valueProperty().addListener((observable, oldValue, newValue) -> {
 							
@@ -120,7 +121,9 @@ public class ApparaatDetailsController implements Initializable {
 
 					if (!device.getSwitchedOn()) {
 
-						slider.setVisible(false);
+					    slider.setDisable(true);
+
+
 
 					}
 
@@ -132,6 +135,11 @@ public class ApparaatDetailsController implements Initializable {
 		deviceType.setText(getDevice().getClass().getSimpleName() + "   (" +  getDevice().getClass().getSuperclass().getSimpleName() + ")"); 
 				
 		deviceState.setText(String.valueOf((getDevice()).getSwitchedOn()));
+		if(getDevice().getSwitchedOn()){
+            deviceState.setStyle("-fx-font-weight: bold");
+        }
+
+
 		deviceActive.setText(String.valueOf(getDevice().isActivated()));
 		buttonOn.setDisable((getDevice()).getSwitchedOn());
 		buttonOff.setDisable(!getDevice().getSwitchedOn());
