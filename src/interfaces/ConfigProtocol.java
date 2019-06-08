@@ -5,7 +5,7 @@ public interface ConfigProtocol {
 	String OBJECT_START = "[";
 	String OBJECT_END = "]";
 	String SPACER = "_";
-	String INTERSECTION = "><<";
+	String INTERSECTION = ">><<";
 	String STR_START = "[<<";
 	String STR_STOP = ">>]";
 	String MSG_START = "<<";

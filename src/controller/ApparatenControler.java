@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import model.Device;
 import model.SwitchableDevice;
@@ -64,15 +65,25 @@ public class ApparatenControler implements Initializable {
 		for (Device device : deviceList) {
 
 			Button deviceButton = new Button(device.getName());
+			Label deviceLabel = new Label(Integer.toString(device.getPort()));
+
+			deviceLabel.setTranslateY(yOffset + ySpacer);
+			deviceLabel.setTranslateX(deviceButton.getTranslateX() - 33 );
 			deviceButton.setTranslateY(yOffset + ySpacer);
-//
-//			if (device.getSwitchedOn()) {
-//
-//				deviceButton.getStyleClass().add("switchedOn");
-//
-//			}
+
+			if(!device.isActivated()){
+
+			deviceButton.getStyleClass().add("notActive");
+			}
+
+			if (device.getSwitchedOn()) {
+			//	deviceLabel.getStyleClass().add("switchedOn");
+			//	deviceButton.getStyleClass().add("switchedOn");
+
+			}
 
 			deviceButton.setOnAction(new EventHandler<ActionEvent>() {
+
 				@Override
 				public void handle(final ActionEvent e) {
 
@@ -91,6 +102,7 @@ public class ApparatenControler implements Initializable {
 				}
 			});
 
+			rootPane.getChildren().addAll(deviceLabel);
 			rootPane.getChildren().addAll(deviceButton);
 
 			// System.out.println(device.getName());

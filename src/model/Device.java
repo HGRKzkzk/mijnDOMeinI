@@ -107,7 +107,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 		getdCom().DeviceAction(this, "read");
 	}
 
-	 void switchOn() {
+	 public void switchOn() {
 
 		if (getdCom().DeviceAction(this, "switch")) {
 			this.switchedOn = true;
@@ -115,7 +115,7 @@ public abstract class Device implements Nameable, PortHandler, Serializable {
 
 	}
 
-	void switchOff() {
+	public void switchOff() {
 
 		if (getdCom().DeviceAction(this, "switch")) {
 			this.switchedOn = false;
